@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 mp.start();
             }
         });
-
+        Toast.makeText(this.getApplicationContext(),songs.get(songID).getName(), Toast.LENGTH_LONG).show();
 
 
     }
@@ -134,11 +135,4 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-}
-
-
-class FileExtensionFilter implements FilenameFilter {
-    public boolean accept(File dir, String name) {
-        return (name.endsWith(".mp3") || name.endsWith(".MP3"));
-    }
 }
