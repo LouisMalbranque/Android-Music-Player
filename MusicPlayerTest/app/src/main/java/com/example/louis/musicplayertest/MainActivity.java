@@ -1,19 +1,16 @@
 package com.example.louis.musicplayertest;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,19 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
             String addr = "";
 
-
-
-            if (new File(getStoragePath().getPath() + "/Music/").exists()){
-                addr = getStoragePath().getPath() + "/Music/";
-            }
-            else if (new File("/sdcard/Download/Music/").exists()){
-                addr = "/sdcard/Download/Music/";
-            }else{
-                System.out.println("Error: No directory found");
-            }
-            File directory = new File(addr);
-
-
             System.out.println("Recherches des musiques:");
             /*for (File f : directory.listFiles()) {
                 f.listFiles()
@@ -64,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
                 strSongs.add(f.getPath());
                 System.out.println(f.getPath());
             }*/
-            listAssetFiles(getStoragePath().getPath());
+            searchMusicFiles("/storage");
+            searchMusicFiles("/sdcard");
             System.out.println(songs.size() + "musiques trouvées.");
 
 
@@ -126,14 +111,18 @@ public class MainActivity extends AppCompatActivity {
         }
         return Environment.getExternalStorageDirectory();
     }
-    private boolean listAssetFiles(String path) {
+    private boolean searchMusicFiles(String path) {
         System.out.println("Recherche dans : "+path);
 
         File directory = new File(path);
 
         for (File f : directory.listFiles()) {
             if (f.isDirectory()) {
-                listAssetFiles(f.getPath());
+                try {
+                    searchMusicFiles(f.getPath());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             } else {
                 if (f.getPath().endsWith(".mp3")) {
                     System.out.println(f.getPath());
