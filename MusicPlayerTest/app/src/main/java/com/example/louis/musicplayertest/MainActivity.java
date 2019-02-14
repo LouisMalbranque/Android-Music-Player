@@ -15,11 +15,16 @@ import android.widget.Button;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1524515;
     MediaPlayer mp=new MediaPlayer();
-
+    List<Song> songs = new ArrayList<Song>();
+    List<String> strSongs = new ArrayList<String>();
+    int songID = 0;
 
 
     @Override
@@ -36,13 +41,34 @@ public class MainActivity extends AppCompatActivity {
                 requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
             }
 
-            String addr = getStoragePath().getPath();
 
-            FileInputStream inputStream = new FileInputStream(addr + "/Music/01. Bad Guy.mp3");
-            mp.setDataSource(inputStream.getFD());
-            //mp.setDataSource(addr);//Write your location here
+            String addr = "";
+
+            if (new File(getStoragePath().getPath() + "/Music/").exists()){
+                addr = getStoragePath().getPath() + "/Music/";
+            }
+            else if (new File("/sdcard/Download/Music/").exists()){
+                addr = getStoragePath().getPath() + "/Music/";
+            }else{
+                System.out.println("Error: No directory found");
+            }
+            File directory = new File(addr);
+
+
+            System.out.println("Recherches des musiques:");
+            for (File f : directory.listFiles()) {
+                songs.add(new Song(f));
+                strSongs.add(f.getPath());
+                System.out.println(f.getPath());
+            }
+            System.out.println(songs.size() + "musiques trouvées.");
+
+
+
+
+            mp.setDataSource(songs.get(0).getPath());
             mp.prepare();
-            System.out.println("try");
+            mp.start();
 
         }catch(Exception e){e.printStackTrace();}
 
@@ -68,13 +94,20 @@ public class MainActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mp.stop();
+                mp.reset();
+                songID = (songID+1)%songs.size();
+                System.out.println(songs.get(songID).getPath());
+                try {
+                    mp.setDataSource(songs.get(songID).getPath());
+                    mp.prepare();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 mp.start();
             }
         });
-
-
-
-
 
 
 
