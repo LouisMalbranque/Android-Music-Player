@@ -44,11 +44,13 @@ public class MainActivity extends AppCompatActivity {
 
             String addr = "";
 
+
+
             if (new File(getStoragePath().getPath() + "/Music/").exists()){
                 addr = getStoragePath().getPath() + "/Music/";
             }
             else if (new File("/sdcard/Download/Music/").exists()){
-                addr = getStoragePath().getPath() + "/Music/";
+                addr = "/sdcard/Download/Music/";
             }else{
                 System.out.println("Error: No directory found");
             }
@@ -56,11 +58,13 @@ public class MainActivity extends AppCompatActivity {
 
 
             System.out.println("Recherches des musiques:");
-            for (File f : directory.listFiles()) {
+            /*for (File f : directory.listFiles()) {
+                f.listFiles()
                 songs.add(new Song(f));
                 strSongs.add(f.getPath());
                 System.out.println(f.getPath());
-            }
+            }*/
+            listAssetFiles(getStoragePath().getPath());
             System.out.println(songs.size() + "musiques trouvées.");
 
 
@@ -121,6 +125,23 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return Environment.getExternalStorageDirectory();
+    }
+    private boolean listAssetFiles(String path) {
+        System.out.println("Recherche dans : "+path);
+
+        File directory = new File(path);
+
+        for (File f : directory.listFiles()) {
+            if (f.isDirectory()) {
+                listAssetFiles(f.getPath());
+            } else {
+                if (f.getPath().endsWith(".mp3")) {
+                    System.out.println(f.getPath());
+                    songs.add(new Song(f));
+                }
+            }
+        }
+        return true;
     }
 
 }
