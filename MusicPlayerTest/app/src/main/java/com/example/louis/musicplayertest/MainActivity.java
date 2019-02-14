@@ -7,9 +7,12 @@ import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -60,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
             mp.setDataSource(songs.get(0).getPath());
             mp.prepare();
             mp.start();
+            newSong();
+            TextView nameSong=findViewById(R.id.songName);
+            nameSong.setText(songs.get(songID).getName());
 
         }catch(Exception e){e.printStackTrace();}
 
@@ -97,9 +103,12 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 mp.start();
+                newSong();
+                TextView nameSong=findViewById(R.id.songName);
+                nameSong.setText(songs.get(songID).getName());
             }
         });
-        Toast.makeText(this.getApplicationContext(),songs.get(songID).getName(), Toast.LENGTH_LONG).show();
+
 
 
     }
@@ -112,6 +121,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return Environment.getExternalStorageDirectory();
+    }
+    private void newSong(){
+        Toast t=Toast.makeText(getApplicationContext(),songs.get(songID).getName(), Toast.LENGTH_LONG);
+        t.setGravity(Gravity.TOP,0,150);
+        t.show();
+
     }
     private boolean searchMusicFiles(String path) {
         System.out.println("Recherche dans : "+path);

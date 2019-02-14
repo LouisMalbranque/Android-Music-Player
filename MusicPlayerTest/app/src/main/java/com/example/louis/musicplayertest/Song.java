@@ -11,7 +11,7 @@ public class Song {
     Song(File f){
         path = f.getPath();
         String splitedPath[] = f.getPath().split("/");
-        String name = splitedPath[splitedPath.length-1].split(".mp3")[0];
+        name = splitedPath[splitedPath.length-1].split(".mp3")[0];
     }
     String getPath(){
         return path;

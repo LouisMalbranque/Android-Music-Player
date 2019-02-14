@@ -10,7 +10,7 @@
         android:id="@+id/playButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="150dp"
         android:background="@drawable/play"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/nextButton"
@@ -23,9 +23,7 @@
         android:layout_height="50dp"
 
         android:layout_marginEnd="64dp"
-        android:layout_marginBottom="55dp"
         android:background="@drawable/next"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/playButton" />
 
