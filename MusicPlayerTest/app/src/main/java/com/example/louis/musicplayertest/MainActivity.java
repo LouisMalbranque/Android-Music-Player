@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        final Button playButton = findViewById(R.id.playButton);
+        final ImageButton playButton = findViewById(R.id.playButton);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button pauseButton = findViewById(R.id.pauseButton);
+        final ImageButton pauseButton = findViewById(R.id.pauseButton);
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button nextButton = findViewById(R.id.nextButton);
+        final ImageButton nextButton = findViewById(R.id.nextButton);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
