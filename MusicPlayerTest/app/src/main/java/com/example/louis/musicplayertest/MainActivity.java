@@ -3,20 +3,16 @@ package com.example.louis.musicplayertest;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
-import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
     List<String> strSongs = new ArrayList<String>();
     int songID = 0;
 
+    ImageButton playButton;
+    ImageButton pauseButton;
+    ImageButton nextButton;
+    ImageButton previousButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,53 +63,74 @@ public class MainActivity extends AppCompatActivity {
 
             mp.setDataSource(songs.get(0).getPath());
             mp.prepare();
-            mp.start();
             newSong();
-            TextView nameSong=findViewById(R.id.songName);
-            nameSong.setText(songs.get(songID).getName());
+            nameSong();
 
         }catch(Exception e){e.printStackTrace();}
 
 
 
-        final ImageButton playButton = findViewById(R.id.playButton);
+        playButton = findViewById(R.id.playButton);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                playButton.setVisibility(ImageButton.INVISIBLE);
+                pauseButton.setVisibility(ImageButton.VISIBLE);
+                mp.start();
+
                 mp.start();
             }
         });
 
-        final ImageButton pauseButton = findViewById(R.id.pauseButton);
+        pauseButton = findViewById(R.id.pauseButton);
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pauseButton.setVisibility(ImageButton.INVISIBLE);
+                playButton.setVisibility(ImageButton.VISIBLE);
                 mp.pause();
             }
         });
 
-        final ImageButton nextButton = findViewById(R.id.nextButton);
+        nextButton = findViewById(R.id.nextButton);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mp.stop();
-                mp.reset();
-                songID = (songID+1)%songs.size();
-                System.out.println(songs.get(songID).getPath());
-                try {
-                    mp.setDataSource(songs.get(songID).getPath());
-                    mp.prepare();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                mp.start();
-                newSong();
-                TextView nameSong=findViewById(R.id.songName);
-                nameSong.setText(songs.get(songID).getName());
+                accessAndPlaySong(1);
+            }
+        });
+        previousButton=findViewById(R.id.previousbutton);
+        previousButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                accessAndPlaySong(-1);
             }
         });
     }
+    private void accessAndPlaySong(int nextOrPrevious){
+        mp.stop();
+        mp.reset();
+        songID = (songID + nextOrPrevious);
+        if (songID < 0) songID = songs.size()-1;
+        if (songID > songs.size()-1) songID = 0;
+        System.out.println(songs.get(songID).getPath());
+        try {
+            mp.setDataSource(songs.get(songID).getPath());
+            mp.prepare();
+        }
+        catch (IOException e) { e.printStackTrace();
+        }
+        mp.start();
+        newSong();
+        nameSong();
+
+    } //si next mettre 1 sinon -1
+
+    private void nameSong(){
+        TextView nameSong=findViewById(R.id.songName);
+        nameSong.setText(songs.get(songID).getName());
+    }
+
 
     private void newSong(){
         Toast t=Toast.makeText(getApplicationContext(),songs.get(songID).getName(), Toast.LENGTH_LONG);
