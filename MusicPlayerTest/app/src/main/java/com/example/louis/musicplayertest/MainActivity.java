@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println();
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -108,20 +109,8 @@ public class MainActivity extends AppCompatActivity {
                 nameSong.setText(songs.get(songID).getName());
             }
         });
-
-
-
     }
-    File getStoragePath() {
-        String removableStoragePath;
-        File fileList[] = new File("/storage/").listFiles();
-        for (File file : fileList) {
-            if(!file.getAbsolutePath().equalsIgnoreCase(Environment.getExternalStorageDirectory().getAbsolutePath()) && file.isDirectory() && file.canRead()) {
-                return file;
-            }
-        }
-        return Environment.getExternalStorageDirectory();
-    }
+
     private void newSong(){
         Toast t=Toast.makeText(getApplicationContext(),songs.get(songID).getName(), Toast.LENGTH_LONG);
         t.setGravity(Gravity.TOP,0,150);
