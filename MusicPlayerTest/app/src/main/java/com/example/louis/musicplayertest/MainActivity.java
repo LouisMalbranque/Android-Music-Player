@@ -1,7 +1,9 @@
 package com.example.louis.musicplayertest;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -9,25 +11,51 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+import static android.widget.Toast.makeText;
+
+public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener{
+
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1524515;
     MediaPlayer mp=new MediaPlayer();
     List<Song> songs = new ArrayList<Song>();
     List<String> strSongs = new ArrayList<String>();
     int songID = 0;
 
+
     ImageButton playButton;
     ImageButton pauseButton;
     ImageButton nextButton;
     ImageButton previousButton;
+
+    SeekBar sb;
+    AudioManager am;
+    int Volume=0;
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        am.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
+        Volume = progress;
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+        //Toast.makeText(getApplicationContext(), "Volume: " + Integer.toString(Volume), Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +63,17 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sb =(SeekBar) findViewById(R.id.sbVolume);
+        am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
+        int maxVolume = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        int curVolume = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+        sb.setMax(maxVolume);
+        sb.setProgress(curVolume);
+
+        sb.setOnSeekBarChangeListener(this);
 
         try{
             System.out.println("Demande d'accès à la mémoire du telephone");
@@ -78,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
                 pauseButton.setVisibility(ImageButton.VISIBLE);
                 mp.start();
 
-                mp.start();
             }
         });
 
@@ -106,7 +144,8 @@ public class MainActivity extends AppCompatActivity {
                 accessAndPlaySong(-1);
             }
         });
-    }
+
+    } //si next mettre 1 sinon -1
     private void accessAndPlaySong(int nextOrPrevious){
         mp.stop();
         mp.reset();
@@ -124,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         newSong();
         nameSong();
 
-    } //si next mettre 1 sinon -1
+    }
 
     private void nameSong(){
         TextView nameSong=findViewById(R.id.songName);
@@ -133,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void newSong(){
-        Toast t=Toast.makeText(getApplicationContext(),songs.get(songID).getName(), Toast.LENGTH_LONG);
+        Toast t= makeText(getApplicationContext(),songs.get(songID).getName(), Toast.LENGTH_LONG);
         t.setGravity(Gravity.TOP,0,150);
         t.show();
 
