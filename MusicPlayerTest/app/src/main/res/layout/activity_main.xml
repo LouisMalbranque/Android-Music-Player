@@ -4,90 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/mainActivity">
 
-    <ImageButton
-        android:id="@+id/accelerate"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="140dp"
-        android:background="@drawable/accelerate"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/nextButton"
-        app:layout_constraintStart_toEndOf="@+id/playButton" />
-
-    <ImageButton
-        android:id="@+id/decelerate"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="140dp"
-        android:background="@drawable/decelerate"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/playButton"
-        app:layout_constraintStart_toEndOf="@+id/previousbutton" />
-
-    <ImageButton
-        android:id="@+id/playButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="140dp"
-        android:background="@drawable/play"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/accelerate"
-        app:layout_constraintStart_toEndOf="@+id/decelerate" />
-
-    <ImageButton
-        android:id="@+id/pauseButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="140dp"
-        android:background="@drawable/pause"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/accelerate"
-        app:layout_constraintStart_toEndOf="@+id/decelerate" />
-
-    <ImageButton
-        android:id="@+id/nextButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/next"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/accelerate"
-        app:layout_constraintTop_toTopOf="@+id/playButton" />
-
-    <ImageButton
-        android:id="@+id/previousbutton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/previous"
-        app:layout_constraintEnd_toStartOf="@+id/decelerate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/decelerate" />
-
-    <TextView
-        android:id="@+id/songName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+    <SeekBar
+        android:id="@+id/sbVolume"
+        android:layout_width="305dp"
+        android:layout_height="26dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/nextButton"
+        android:layout_marginBottom="64dp"
+        android:max="200"
+        android:progress="0"
+        android:progressDrawable="@drawable/custom_drawable"
+        android:thumb="@drawable/custom_drawable"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>
