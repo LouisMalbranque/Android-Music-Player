@@ -1,11 +1,12 @@
 package com.example.louis.musicplayertest;
 
 import java.io.File;
+import java.io.Serializable;
 
-public class Song {
+public class Song implements Serializable {
     private String path;
     private String name;
-    Song(){
+    public Song(){
 
     }
     public Song(File f){

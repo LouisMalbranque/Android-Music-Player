@@ -2,11 +2,13 @@ package com.example.louis.musicplayertest.Fragment;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
@@ -33,24 +35,42 @@ import static android.widget.Toast.makeText;
  */
 public class Song_Fragment extends Fragment {
 
-    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1524515;
-    MediaPlayer mp=new MediaPlayer();
-    List<Song> songs = new ArrayList<Song>();
-    List<String> strSongs = new ArrayList<String>();
-    int songID = 0;
-    View viewfragment;
+    private MediaPlayer mp=new MediaPlayer();
+    private int songID = 0;
+    private View viewfragment;
 
-    ImageButton playButton;
-    ImageButton pauseButton;
-    ImageButton nextButton;
-    ImageButton previousButton;
+    private List<Song> songs = new ArrayList<Song>(1);
 
-    SeekBar sb;
+    private ImageButton playButton;
+    private ImageButton pauseButton;
+    private ImageButton nextButton;
+    private ImageButton previousButton;
+
+    private SeekBar sb;
 
     public Song_Fragment() {
         // Required empty public constructor
     }
+    public static Song_Fragment newInstance(List<Song> songs) {
 
+        Bundle args = new Bundle();
+        for (int i=0; i<songs.size(); i++){
+            args.putSerializable("song"+Integer.toString(i), songs.get(i));
+        }
+        Song_Fragment fragment = new Song_Fragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        for (int i=0; i<getArguments().size(); i++){
+            songs.add((Song) getArguments().getSerializable("song"+Integer.toString(i)));
+        }
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,38 +78,6 @@ public class Song_Fragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_song, container, false);
         viewfragment=view;
-        try{
-            System.out.println("Demande d'accès à la mémoire du telephone");
-            if(ContextCompat.checkSelfPermission(getContext(),Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
-                //ask for permission
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-            }
-
-
-            String addr = "";
-
-            System.out.println("Recherches des musiques:");
-            /*for (File f : directory.listFiles()) {
-                f.listFiles()
-                songs.add(new Song(f));
-                strSongs.add(f.getPath());
-                System.out.println(f.getPath());
-            }*/
-            searchMusicFiles("/storage");
-            searchMusicFiles("/sdcard");
-            System.out.println(songs.size() + "musiques trouvées.");
-
-
-
-
-            mp.setDataSource(songs.get(0).getPath());
-            mp.prepare();
-            newSong();
-            nameSong();
-
-        }catch(Exception e){e.printStackTrace();}
-
-
 
         playButton = view.findViewById(R.id.playButton);
         playButton.setOnClickListener(new View.OnClickListener() {
@@ -160,26 +148,4 @@ public class Song_Fragment extends Fragment {
         t.show();
 
     }
-    private boolean searchMusicFiles(String path) {
-        System.out.println("Recherche dans : "+path);
-
-        File directory = new File(path);
-
-        for (File f : directory.listFiles()) {
-            if (f.isDirectory()) {
-                try {
-                    searchMusicFiles(f.getPath());
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            } else {
-                if (f.getPath().endsWith(".mp3")) {
-                    System.out.println(f.getPath());
-                    songs.add(new Song(f));
-                }
-            }
-        }
-        return true;
-    }
-
 }
