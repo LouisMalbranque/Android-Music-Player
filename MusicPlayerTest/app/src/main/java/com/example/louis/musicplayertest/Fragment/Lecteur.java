@@ -1,16 +1,12 @@
 package com.example.louis.musicplayertest.Fragment;
 
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +19,6 @@ import android.widget.Toast;
 import com.example.louis.musicplayertest.R;
 import com.example.louis.musicplayertest.Song;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +28,7 @@ import static android.widget.Toast.makeText;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Song_Fragment extends Fragment {
+public class Lecteur extends Fragment implements SeekBar.OnSeekBarChangeListener{
 
     private MediaPlayer mp=new MediaPlayer();
     private int songID = 0;
@@ -48,16 +43,20 @@ public class Song_Fragment extends Fragment {
 
     private SeekBar sb;
 
-    public Song_Fragment() {
+    AudioManager am;
+    int Volume=0;
+
+
+    public Lecteur() {
         // Required empty public constructor
     }
-    public static Song_Fragment newInstance(List<Song> songs) {
+    public static Lecteur newInstance(List<Song> songs) {
 
         Bundle args = new Bundle();
         for (int i=0; i<songs.size(); i++){
             args.putSerializable("song"+Integer.toString(i), songs.get(i));
         }
-        Song_Fragment fragment = new Song_Fragment();
+        Lecteur fragment = new Lecteur();
         fragment.setArguments(args);
         return fragment;
     }
@@ -73,11 +72,19 @@ public class Song_Fragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_song, container, false);
         viewfragment=view;
+
+        am = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
+        int maxVolume = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        int curVolume = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+        sb =(SeekBar) view.findViewById(R.id.sbVolume);
+        sb.setMax(maxVolume);
+        sb.setProgress(curVolume);
+
+        sb.setOnSeekBarChangeListener(this);
 
         playButton = view.findViewById(R.id.playButton);
         playButton.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +124,7 @@ public class Song_Fragment extends Fragment {
         return view;
     }
 
-    private void accessAndPlaySong(int nextOrPrevious){
+    public void accessAndPlaySong(int nextOrPrevious){
         mp.stop();
         mp.reset();
         songID = (songID + nextOrPrevious);
@@ -135,17 +142,30 @@ public class Song_Fragment extends Fragment {
         nameSong();
 
     }
-
-    private void nameSong(){
+    public void nameSong(){
         TextView nameSong=viewfragment.findViewById(R.id.songName);
         nameSong.setText(songs.get(songID).getName());
     }
-
-
-    private void newSong(){
+    public void newSong(){
         Toast t= makeText(getContext(),songs.get(songID).getName(), Toast.LENGTH_LONG);
         t.setGravity(Gravity.TOP,0,150);
         t.show();
 
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        am.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
+        Volume = progress;
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+        //Toast.makeText(getApplicationContext(), "Volume: " + Integer.toString(Volume), Toast.LENGTH_SHORT).show();
     }
 }
