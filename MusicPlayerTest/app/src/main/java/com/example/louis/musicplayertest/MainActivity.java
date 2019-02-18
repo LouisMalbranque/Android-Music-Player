@@ -1,7 +1,10 @@
 package com.example.louis.musicplayertest;
 
 import android.Manifest;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.pm.PackageManager;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +15,8 @@ import android.widget.SearchView;
 
 import com.example.louis.musicplayertest.Fragment.Lecteur;
 import com.example.louis.musicplayertest.Fragment.ListSong;
+
+import org.xml.sax.ext.LexicalHandler;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -53,25 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         }catch(Exception e){e.printStackTrace();}
 
-
-
-        Bundle b = new Bundle();
-        for (int i=0; i<songs.size(); i++){
-            b.putSerializable("song"+Integer.toString(i), songs.get(i));
-        }
-
-
-        Button list_Song = findViewById(R.id.ListSong);
-
-        list_Song.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction().add(R.id.mainActivity, listSong).disallowAddToBackStack().commit();
-            }
-        });
-        //getSupportFragmentManager().beginTransaction().add(R.id.mainActivity, Lecteur.newInstance(songs)).commit();
-
-
         SearchView searchView = findViewById(R.id.searchBox);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -90,6 +76,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button buttonPlayer = findViewById(R.id.Player);
+        buttonPlayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.fragment,(android.app.Fragment) new Lecteur()).commit();
+            }
+        });
+        
+        Button buttonListSong = findViewById(R.id.ListSong);
+        buttonListSong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = getFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.fragment,(android.app.Fragment) new ListSong()).commit();
+            }
+        });
     }
     private boolean searchMusicFiles(String path) {
         System.out.println("Recherche dans : "+path);

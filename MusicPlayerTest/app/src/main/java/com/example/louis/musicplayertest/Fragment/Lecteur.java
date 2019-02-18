@@ -16,6 +16,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.louis.musicplayertest.MainActivity;
 import com.example.louis.musicplayertest.R;
 import com.example.louis.musicplayertest.Song;
 
@@ -28,13 +29,13 @@ import static android.widget.Toast.makeText;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Lecteur extends Fragment implements SeekBar.OnSeekBarChangeListener{
+public class Lecteur extends android.app.Fragment implements SeekBar.OnSeekBarChangeListener{
 
     private MediaPlayer mp=new MediaPlayer();
     private int songID = 0;
     private View viewfragment;
 
-    private List<Song> songs = new ArrayList<Song>(1);
+    private List<Song> songs = MainActivity.songs;
 
     private ImageButton playButton;
     private ImageButton pauseButton;
@@ -50,31 +51,11 @@ public class Lecteur extends Fragment implements SeekBar.OnSeekBarChangeListener
     public Lecteur() {
         // Required empty public constructor
     }
-    public static Lecteur newInstance(List<Song> songs) {
-
-        Bundle args = new Bundle();
-        for (int i=0; i<songs.size(); i++){
-            args.putSerializable("song"+Integer.toString(i), songs.get(i));
-        }
-        Lecteur fragment = new Lecteur();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        for (int i=0; i<getArguments().size(); i++){
-            songs.add((Song) getArguments().getSerializable("song"+Integer.toString(i)));
-        }
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_song, container, false);
+        View view= inflater.inflate(R.layout.fragment_player, container, false);
         viewfragment=view;
 
         am = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
