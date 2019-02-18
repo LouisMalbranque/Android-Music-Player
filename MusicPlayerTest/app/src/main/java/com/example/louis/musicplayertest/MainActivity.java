@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public static List<Song> songs = new ArrayList<Song>();
 
     ListSong listSong = new ListSong();
+    Lecteur lecteur = new Lecteur();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,23 +77,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button buttonPlayer = findViewById(R.id.Player);
+        final Button buttonPlayer = findViewById(R.id.Player);
         buttonPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager manager = getFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.fragment,(android.app.Fragment) new Lecteur()).commit();
+                transaction.remove(listSong);
+                transaction.replace(R.id.fragment, lecteur).commit();
             }
         });
-        
+
         Button buttonListSong = findViewById(R.id.ListSong);
         buttonListSong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager manager = getFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.fragment,(android.app.Fragment) new ListSong()).commit();
+                transaction.remove(lecteur);
+                transaction.add(R.id.fragment,listSong).commit();
             }
         });
     }
@@ -101,19 +104,23 @@ public class MainActivity extends AppCompatActivity {
 
         File directory = new File(path);
 
-        for (File f : directory.listFiles()) {
-            if (f.isDirectory()) {
-                try {
-                    searchMusicFiles(f.getPath());
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            } else {
-                if (f.getPath().endsWith(".mp3")) {
-                    System.out.println(f.getPath());
-                    songs.add(new Song(f));
+        try {
+            for (File f : directory.listFiles()) {
+                if (f.isDirectory()) {
+                    try {
+                        searchMusicFiles(f.getPath());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    if (f.getPath().endsWith(".mp3")) {
+                        System.out.println(f.getPath());
+                        songs.add(new Song(f));
+                    }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return true;
     }
