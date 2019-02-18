@@ -54,7 +54,7 @@ public class Lecteur extends android.app.Fragment implements SeekBar.OnSeekBarCh
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        super.onCreateView(inflater, container, savedInstanceState);
         View view= inflater.inflate(R.layout.fragment_player, container, false);
         viewfragment=view;
 
@@ -71,10 +71,7 @@ public class Lecteur extends android.app.Fragment implements SeekBar.OnSeekBarCh
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                playButton.setVisibility(ImageButton.INVISIBLE);
-                pauseButton.setVisibility(ImageButton.VISIBLE);
-                mp.start();
-
+                play();
             }
         });
 
@@ -82,9 +79,7 @@ public class Lecteur extends android.app.Fragment implements SeekBar.OnSeekBarCh
         pauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pauseButton.setVisibility(ImageButton.INVISIBLE);
-                playButton.setVisibility(ImageButton.VISIBLE);
-                mp.pause();
+                pause();
             }
         });
 
@@ -119,8 +114,6 @@ public class Lecteur extends android.app.Fragment implements SeekBar.OnSeekBarCh
         catch (IOException e) { e.printStackTrace();
         }
         mp.start();
-        newSong();
-        nameSong();
 
     }
     public void nameSong(){
@@ -148,5 +141,18 @@ public class Lecteur extends android.app.Fragment implements SeekBar.OnSeekBarCh
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         //Toast.makeText(getApplicationContext(), "Volume: " + Integer.toString(Volume), Toast.LENGTH_SHORT).show();
+    }
+    public void setSongID(int songID) {
+        this.songID = songID;
+    }
+    public void pause(){
+        pauseButton.setVisibility(ImageButton.INVISIBLE);
+        playButton.setVisibility(ImageButton.VISIBLE);
+        mp.pause();
+    }
+    public void play(){
+        pauseButton.setVisibility(ImageButton.VISIBLE);
+        playButton.setVisibility(ImageButton.INVISIBLE);
+        mp.start();
     }
 }

@@ -30,16 +30,18 @@ public class MainActivity extends AppCompatActivity {
 
     public static List<Song> songs = new ArrayList<Song>();
 
-    ListSong listSong = new ListSong();
-    Lecteur lecteur = new Lecteur();
+    public ListSong listSong = new ListSong();
+    public Lecteur lecteur = new Lecteur();
+
+    public FragmentTransaction transaction;
+    public android.app.FragmentManager manager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
         try{
             System.out.println("Demande d'accès à la mémoire du telephone");
@@ -59,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         }catch(Exception e){e.printStackTrace();}
 
-        SearchView searchView = findViewById(R.id.searchBox);
+        final SearchView searchView = findViewById(R.id.searchBox);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -77,25 +79,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        manager = getFragmentManager();
+        transaction = manager.beginTransaction();
+        transaction.add(R.id.fragment, lecteur);
+        transaction.commit();
+
         final Button buttonPlayer = findViewById(R.id.Player);
         buttonPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager manager = getFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.remove(listSong);
-                transaction.replace(R.id.fragment, lecteur).commit();
+                transaction = manager.beginTransaction();
+                transaction.replace(R.id.fragment, lecteur);
+                transaction.commit();
             }
         });
 
-        Button buttonListSong = findViewById(R.id.ListSong);
+        final Button buttonListSong = findViewById(R.id.ListSong);
         buttonListSong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager manager = getFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.remove(lecteur);
-                transaction.add(R.id.fragment,listSong).commit();
+                transaction = manager.beginTransaction();
+                transaction.replace(R.id.fragment, listSong);
+                transaction.commit();
             }
         });
     }
