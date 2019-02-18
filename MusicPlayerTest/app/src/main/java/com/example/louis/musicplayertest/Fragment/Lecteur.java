@@ -124,8 +124,8 @@ public class Lecteur extends android.app.Fragment implements SeekBar.OnSeekBarCh
 
     }
     public void nameSong(){
-        TextView nameSong=viewfragment.findViewById(R.id.songName);
-        nameSong.setText(songs.get(songID).getName());
+        //TextView nameSong=viewfragment.findViewById(R.id.songName);
+        //nameSong.setText(songs.get(songID).getName());
     }
     public void newSong(){
         Toast t= makeText(getContext(),songs.get(songID).getName(), Toast.LENGTH_LONG);
@@ -139,12 +139,10 @@ public class Lecteur extends android.app.Fragment implements SeekBar.OnSeekBarCh
         am.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
         Volume = progress;
     }
-
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
 
     }
-
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         //Toast.makeText(getApplicationContext(), "Volume: " + Integer.toString(Volume), Toast.LENGTH_SHORT).show();

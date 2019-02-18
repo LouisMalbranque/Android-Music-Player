@@ -50,6 +50,7 @@ public class ListSong extends android.app.Fragment implements AdapterView.OnItem
 
         }
         listView.setAdapter(new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1, songname));
+        listView.setOnItemClickListener(this);
 
         return view;
     }
@@ -58,7 +59,6 @@ public class ListSong extends android.app.Fragment implements AdapterView.OnItem
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
-        getFragmentManager().beginTransaction().add(R.id.mainActivity,new Lecteur()).addToBackStack(null).commit();
+        //getFragmentManager().beginTransaction().add(R.id.mainActivity,new Lecteur()).addToBackStack(null).commit();
     }
 }

@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.PackageManager;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,8 +14,6 @@ import android.widget.SearchView;
 
 import com.example.louis.musicplayertest.Fragment.Lecteur;
 import com.example.louis.musicplayertest.Fragment.ListSong;
-
-import org.xml.sax.ext.LexicalHandler;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -30,15 +27,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static List<Song> songs = new ArrayList<Song>();
 
-    ListSong listSong = new ListSong();
+    ListSong listSong=new ListSong();
+    Lecteur lecteur = new Lecteur();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
         try{
             System.out.println("Demande d'accès à la mémoire du telephone");
@@ -76,13 +72,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         Button buttonPlayer = findViewById(R.id.Player);
         buttonPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager manager = getFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.fragment,(android.app.Fragment) new Lecteur()).commit();
+                final FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainActivity,lecteur).commit();
+
             }
         });
         
@@ -90,9 +87,8 @@ public class MainActivity extends AppCompatActivity {
         buttonListSong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager manager = getFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.fragment,(android.app.Fragment) new ListSong()).commit();
+                final FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.mainActivity,listSong).commit();
             }
         });
     }
