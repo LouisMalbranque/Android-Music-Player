@@ -55,12 +55,6 @@ public class ListSong extends android.app.Fragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Lecteur lecteur = ((MainActivity)getActivity()).lecteur;
 
-                FragmentTransaction transaction;
-                android.app.FragmentManager manager = getFragmentManager();
-                transaction = manager.beginTransaction();
-                transaction.replace(R.id.fragment, ((MainActivity)getActivity()).lecteur);
-                transaction.commit();
-
                 lecteur.pause();
                 lecteur.setSongID(position);
                 lecteur.accessAndPlaySong(0);

@@ -3,6 +3,7 @@ package com.example.louis.musicplayertest;
 import android.Manifest;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -84,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
         transaction.add(R.id.fragment, lecteur);
         transaction.commit();
 
-        final Button buttonPlayer = findViewById(R.id.Player);
-        buttonPlayer.setOnClickListener(new View.OnClickListener() {
+        final Button buttonLecteur = findViewById(R.id.buttonLecteur);
+        buttonLecteur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 transaction = manager.beginTransaction();
@@ -94,13 +95,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button buttonListSong = findViewById(R.id.ListSong);
+        final Button buttonListSong = findViewById(R.id.buttonListSong);
         buttonListSong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 transaction = manager.beginTransaction();
                 transaction.replace(R.id.fragment, listSong);
                 transaction.commit();
+            }
+        });
+        final Button buttonCombined = findViewById(R.id.buttonCombined);
+        buttonCombined.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, MainCombined.class);
+                startActivity(i);
             }
         });
     }
