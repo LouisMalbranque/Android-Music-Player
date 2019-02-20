@@ -32,7 +32,7 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
 
     private MediaPlayer mp=new MediaPlayer();
     private int songID = 0;
-    private View viewfragment;
+    private View view;
 
     private List<Song> songs = MainActivity.songs;
 
@@ -55,11 +55,13 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View view= inflater.inflate(R.layout.fragment_player, container, false);
+        view= inflater.inflate(R.layout.fragment_player, container, false);
 
         am = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
         int maxVolume = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         int curVolume = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+        mp.setLooping(true);
 
         sb =(SeekBar) view.findViewById(R.id.sbVolume);
         sb.setMax(maxVolume);
@@ -70,7 +72,8 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                play();
+                if (mp.getDuration() != 0) play();
+                else accessAndPlaySong(0);
             }
         });
         pauseButton = view.findViewById(R.id.pauseButton);
@@ -95,7 +98,6 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
             }
         });
 
-
         if (isPlaying) play(); else pause();
 
         return view;
@@ -105,16 +107,20 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean("isPlaying", isPlaying);
+        outState.putInt("songID", songID);
     }
 
     @Override
     public void onViewStateRestored(Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState != null) isPlaying = savedInstanceState.getBoolean("isPlaying");
-
+        if (savedInstanceState != null){
+            isPlaying = savedInstanceState.getBoolean("isPlaying");
+            songID = savedInstanceState.getInt("songID");
+        }
+        nameSong();
         if (isPlaying) play(); else pause();
     }
-    
+
 
     public void accessAndPlaySong(int nextOrPrevious){
         mp.stop();
@@ -129,17 +135,23 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
         }
         catch (IOException e) { e.printStackTrace();
         }
-        mp.start();
+        play();
+        nameSong();
+        newSong();
 
     }
     public void nameSong(){
-        TextView nameSong=viewfragment.findViewById(R.id.songName);
+        TextView nameSong=view.findViewById(R.id.songName);
         nameSong.setText(songs.get(songID).getName());
     }
     public void newSong(){
-        Toast t= makeText(getContext(),songs.get(songID).getName(), Toast.LENGTH_LONG);
-        t.setGravity(Gravity.TOP,0,150);
-        t.show();
+        try {
+            Toast t = makeText(getContext(), songs.get(songID).getName(), Toast.LENGTH_LONG);
+            t.setGravity(Gravity.TOP, 0, 150);
+            t.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -165,13 +177,13 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
         pauseButton.setVisibility(ImageButton.INVISIBLE);
         playButton.setVisibility(ImageButton.VISIBLE);
         mp.pause();
-        isPlaying = true;
+        isPlaying = false;
     }
     public void play(){
         pauseButton.setVisibility(ImageButton.VISIBLE);
         playButton.setVisibility(ImageButton.INVISIBLE);
         mp.start();
-        isPlaying = false;
+        isPlaying = true;
     }
 
 }

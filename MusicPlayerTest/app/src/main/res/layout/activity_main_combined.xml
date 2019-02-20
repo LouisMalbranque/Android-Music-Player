@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <fragment
-            android:id="@+id/fragment3"
+            android:id="@+id/fragment_list_song"
             android:name="com.example.louis.musicplayertest.Fragment.BlankFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             tools:layout="@layout/fragment_blank" />
 
         <fragment
-            android:id="@+id/fragment2"
+            android:id="@+id/fragment_player"
             android:name="com.example.louis.musicplayertest.Fragment.BlankFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

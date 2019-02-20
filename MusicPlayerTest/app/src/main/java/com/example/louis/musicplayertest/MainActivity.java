@@ -76,11 +76,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        manager = getFragmentManager();
-        transaction = manager.beginTransaction();
-        transaction.add(R.id.fragment, Player.getInstance());
-        transaction.commit();
-
         final Button buttonLecteur = findViewById(R.id.buttonLecteur);
         buttonLecteur.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,11 +99,35 @@ public class MainActivity extends AppCompatActivity {
         buttonCombined.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                transaction = manager.beginTransaction();
+                transaction.remove(Player.getInstance());
+                transaction.remove(ListSong.getInstance());
+                transaction.commit();
                 Intent i = new Intent(MainActivity.this, MainCombined.class);
                 startActivity(i);
             }
         });
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        manager = getFragmentManager();
+        transaction = manager.beginTransaction();
+        transaction.add(R.id.fragment, Player.getInstance());
+        transaction.commit();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        manager = getFragmentManager();
+        transaction = manager.beginTransaction();
+        transaction.remove(Player.getInstance());
+        transaction.remove(ListSong.getInstance());
+        transaction.commit();
+    }
+
     private boolean searchMusicFiles(String path) {
         System.out.println("Recherche dans : "+path);
 

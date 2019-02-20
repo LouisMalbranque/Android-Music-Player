@@ -5,7 +5,7 @@
     android:id="@+id/player_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.Lecteur">
+    tools:context=".StaticClass.Player">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -35,7 +35,6 @@
 
         <ImageButton
             android:id="@+id/playButton"
-            android:saveEnabled="true"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
