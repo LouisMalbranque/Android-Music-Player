@@ -14,10 +14,9 @@ import android.widget.Button;
 import android.widget.SearchView;
 
 
-import com.example.louis.musicplayertest.Fragment.Lecteur;
-import com.example.louis.musicplayertest.Fragment.ListSong;
+import com.example.louis.musicplayertest.StaticClass.*;
+import com.example.louis.musicplayertest.R;
 
-import org.xml.sax.ext.LexicalHandler;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -30,9 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1524515;
 
     public static List<Song> songs = new ArrayList<Song>();
-
-    public ListSong listSong = new ListSong();
-    public Lecteur lecteur = new Lecteur();
 
     public FragmentTransaction transaction;
     public android.app.FragmentManager manager;
@@ -82,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         manager = getFragmentManager();
         transaction = manager.beginTransaction();
-        transaction.add(R.id.fragment, lecteur);
+        transaction.add(R.id.fragment, Player.getInstance());
         transaction.commit();
 
         final Button buttonLecteur = findViewById(R.id.buttonLecteur);
@@ -90,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 transaction = manager.beginTransaction();
-                transaction.replace(R.id.fragment, lecteur);
+                transaction.replace(R.id.fragment, Player.getInstance());
                 transaction.commit();
             }
         });
@@ -100,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 transaction = manager.beginTransaction();
-                transaction.replace(R.id.fragment, listSong);
+                transaction.replace(R.id.fragment, ListSong.getInstance());
                 transaction.commit();
             }
         });

@@ -21,18 +21,18 @@
 
         <fragment
             android:id="@+id/fragment3"
-            android:name="com.example.louis.musicplayertest.Fragment.ListSong"
+            android:name="com.example.louis.musicplayertest.Fragment.BlankFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            tools:layout="@layout/fragment_list_song" />
+            tools:layout="@layout/fragment_blank" />
 
         <fragment
             android:id="@+id/fragment2"
-            android:name="com.example.louis.musicplayertest.Fragment.Lecteur"
+            android:name="com.example.louis.musicplayertest.Fragment.BlankFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout="@layout/fragment_player" />
+            tools:layout="@layout/fragment_blank" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
