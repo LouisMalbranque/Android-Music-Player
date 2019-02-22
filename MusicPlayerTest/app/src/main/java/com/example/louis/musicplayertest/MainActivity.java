@@ -272,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 /*XML mainActivity
-        <Button
+          <Button
             android:id="@+id/buttonLecteur"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
