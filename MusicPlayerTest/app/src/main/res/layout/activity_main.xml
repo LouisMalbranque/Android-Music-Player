@@ -24,11 +24,15 @@
 
 
     <ListView
-        android:id="@+id/lv_sliding_menu"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:background="@android:color/background_light"
-        android:choiceMode="singleChoice"></ListView>
+        android:id="@+id/lv_sliding_menu"
+        android:choiceMode="singleChoice"
+        android:background="#AFAFAF"
+        android:divider="#FFFFFF"
+        android:dividerHeight="1dp"
+        android:layout_gravity="start">
+        
+    </ListView>
 
 </android.support.v4.widget.DrawerLayout>
