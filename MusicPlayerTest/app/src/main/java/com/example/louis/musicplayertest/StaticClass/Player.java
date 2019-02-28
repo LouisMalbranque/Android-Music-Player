@@ -43,6 +43,8 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
     private ImageButton pauseButton;
     private ImageButton nextButton;
     private ImageButton previousButton;
+    private ImageButton forwardButton;
+    private ImageButton backwardButton;
 
     private SeekBar sb;
     private SeekBar mSeekBar;
@@ -112,6 +114,22 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
 
         if (isPlaying) play();
         else if (songID!=-1) pause();
+        forwardButton = view.findViewById(R.id.forwardButton);
+        forwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveMusic(3);
+            }
+        });
+        backwardButton = view.findViewById(R.id.backwardButton);
+        backwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveMusic(-3);
+            }
+        });
+
+        if (isPlaying) play(); else pause();
 
         mSeekBar=view.findViewById(R.id.songDuration);
         mSeekBar.setMax(0);
@@ -262,5 +280,14 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
         mp.start();
         isPlaying = true;
     }
-
+    public void moveMusic(int sec){
+        int time = mp.getCurrentPosition() + sec*1000;
+        if (time < 0) time = 0;
+        else if (time > mp.getDuration())
+        {
+            accessAndPlaySong(1);
+            return;
+        }
+        mp.seekTo(time);
+    }
 }

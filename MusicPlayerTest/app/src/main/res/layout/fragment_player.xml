@@ -20,7 +20,7 @@
             app:layout_constraintTop_toBottomOf="@+id/songDuration" />
 
         <ImageButton
-            android:id="@+id/accelerate"
+            android:id="@+id/forwardButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="@+id/pauseButton" />
 
         <ImageButton
-            android:id="@+id/decelerate"
+            android:id="@+id/backwardButton"
             android:layout_width="50dp"
             android:layout_height="48dp"
             android:layout_marginStart="8dp"
@@ -50,8 +50,8 @@
             android:layout_marginBottom="140dp"
             android:background="@drawable/play"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/accelerate"
-            app:layout_constraintStart_toEndOf="@+id/decelerate" />
+            app:layout_constraintEnd_toStartOf="@+id/forwardButton"
+            app:layout_constraintStart_toEndOf="@+id/backwardButton" />
 
         <ImageButton
             android:id="@+id/pauseButton"
@@ -62,8 +62,8 @@
             android:layout_marginEnd="8dp"
             android:background="@drawable/pause"
             android:visibility="invisible"
-            app:layout_constraintEnd_toStartOf="@+id/accelerate"
-            app:layout_constraintStart_toEndOf="@+id/decelerate"
+            app:layout_constraintEnd_toStartOf="@+id/forwardButton"
+            app:layout_constraintStart_toEndOf="@+id/backwardButton"
             app:layout_constraintTop_toTopOf="@+id/playButton" />
 
         <ImageButton
@@ -75,7 +75,7 @@
             android:layout_marginEnd="8dp"
             android:background="@drawable/next"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/accelerate"
+            app:layout_constraintStart_toEndOf="@+id/forwardButton"
             app:layout_constraintTop_toTopOf="@+id/pauseButton" />
 
         <ImageButton
@@ -86,7 +86,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/previous"
-            app:layout_constraintEnd_toStartOf="@+id/decelerate"
+            app:layout_constraintEnd_toStartOf="@+id/backwardButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/pauseButton" />
 
