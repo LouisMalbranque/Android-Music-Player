@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
         listSliding.add(new Slide("BlackFragment"));
         listSliding.add(new Slide("Player"));
-        listSliding.add(new Slide("ListSong"));
-        listSliding.add(new Slide("Vue Combiné"));
+        listSliding.add(new Slide("Mes musiques"));
+        listSliding.add(new Slide("Liste de lecture"));
         adapter = new SlideAdapter(this,listSliding);
         listViewSliding.setAdapter(adapter);
 

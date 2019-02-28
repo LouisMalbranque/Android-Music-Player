@@ -5,62 +5,46 @@
     android:id="@+id/mainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#AFAFAF"
     tools:context=".MainActivity">
 
-    <fragment
-        android:id="@+id/fragment"
-        android:name="com.example.louis.musicplayertest.Fragment.BlankFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:layout="@layout/fragment_blank" />
-
-    <SearchView
-        android:id="@+id/searchBox"
-        android:layout_width="368dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:iconifiedByDefault="true"
-        android:queryHint="Search Music"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </SearchView>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchBox">
 
 
+        <SearchView
+            android:id="@+id/searchBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:iconifiedByDefault="true"
+            android:queryHint="Rechercher"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-
-    </LinearLayout>
-
+        <fragment
+            android:id="@+id/fragment"
+            android:name="com.example.louis.musicplayertest.Fragment.BlankFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchBox"
+            tools:layout="@layout/fragment_blank" />
 
     <ListView
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/lv_sliding_menu"
         android:choiceMode="singleChoice"
-        android:background="@color/design_default_color_primary_dark"
-        android:layout_gravity="start"></ListView>
-
+        android:background="#AFAFAF"
+        android:divider="#FFFFFF"
+        android:dividerHeight="1dp"
+        android:layout_gravity="start"/>
 </android.support.v4.widget.DrawerLayout>
