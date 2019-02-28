@@ -132,9 +132,9 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
         if (isPlaying) play(); else pause();
 
         mSeekBar=view.findViewById(R.id.songDuration);
-        mSeekBar.setMax(0);
 
         handler =new Handler();
+
         if (songID!=-1) mSeekBar.setMax(mp.getDuration());
 
         songProgress=view.findViewById(R.id.SongProgress);
@@ -164,6 +164,10 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
                 final long mMinutes=(progress/1000)/60;//converting into minutes
                 final int mSeconds=((progress/1000)%60);//converting into seconds
                 songProgress.setText(mMinutes+":"+mSeconds);
+
+                final long Minutes=(mp.getDuration()/1000)/60;//converting into minutes
+                final int Seconds=((mp.getDuration()/1000)%60);//converting into seconds
+                songMax.setText(Minutes+":"+Seconds);
             }
 
             @Override

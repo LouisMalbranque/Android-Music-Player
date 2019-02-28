@@ -5,7 +5,6 @@
     android:id="@+id/mainActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AFAFAF"
     tools:context=".MainActivity">
 
     <fragment
@@ -32,7 +31,7 @@
         android:divider="#FFFFFF"
         android:dividerHeight="1dp"
         android:layout_gravity="start">
-        
+
     </ListView>
 
 </android.support.v4.widget.DrawerLayout>
