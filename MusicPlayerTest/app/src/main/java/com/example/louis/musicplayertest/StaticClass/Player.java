@@ -4,6 +4,7 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,8 @@ import com.example.louis.musicplayertest.R;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.widget.Toast.makeText;
 
@@ -29,8 +32,9 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
         return ourInstance;
     }
 
+
     private MediaPlayer mp=new MediaPlayer();
-    private int songID = 0;
+    private int songID = -1;
     private View view;
 
     private List<Song> songs = MainActivity.songs;
@@ -41,9 +45,17 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
     private ImageButton previousButton;
 
     private SeekBar sb;
+    private SeekBar mSeekBar;
 
     private AudioManager am;
-    private int Volume=0;
+    private int Volume;
+
+    Handler handler;
+    Runnable runnable;
+
+    private TextView songProgress;
+    private TextView songMax;
+
 
     private boolean isPlaying = false;
 
@@ -62,7 +74,7 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
 
         mp.setLooping(true);
 
-        sb =(SeekBar) view.findViewById(R.id.sbVolume);
+        sb = view.findViewById(R.id.sbVolume);
         sb.setMax(maxVolume);
         sb.setProgress(curVolume);
         sb.setOnSeekBarChangeListener(this);
@@ -71,8 +83,9 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mp.getDuration() != 0) play();
-                else accessAndPlaySong(0);
+                if (songID != -1) play();
+
+                else accessAndPlaySong(1);
             }
         });
         pauseButton = view.findViewById(R.id.pauseButton);
@@ -97,9 +110,68 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
             }
         });
 
-        if (isPlaying) play(); else pause();
+        if (isPlaying) play();
+        else if (songID!=-1) pause();
+
+        mSeekBar=view.findViewById(R.id.songDuration);
+        mSeekBar.setMax(0);
+
+        handler =new Handler();
+        if (songID!=-1) mSeekBar.setMax(mp.getDuration());
+
+        songProgress=view.findViewById(R.id.SongProgress);
+        songMax=view.findViewById(R.id.songMax);
+
+
+        mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mSeekBar.setMax(mp.getDuration());
+                final long Minutes=(mp.getDuration()/1000)/60;//converting into minutes
+                final int Seconds=((mp.getDuration()/1000)%60);//converting into seconds
+                songMax.setText(Minutes+":"+Seconds);
+
+                playCycle();
+            }
+        });
+
+        playCycle();
+
+        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean input) {
+                if (input){
+                    mp.seekTo(progress);
+                }
+                final long mMinutes=(progress/1000)/60;//converting into minutes
+                final int mSeconds=((progress/1000)%60);//converting into seconds
+                songProgress.setText(mMinutes+":"+mSeconds);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+
+        });
 
         return view;
+    }
+
+    public void playCycle(){
+        mSeekBar.setProgress(mp.getCurrentPosition());
+        if (mp.isPlaying()){
+            runnable = new Runnable() {
+                @Override
+                public void run() {
+                    playCycle();
+                }
+            };
+            handler.postDelayed(runnable,250);
+        }
     }
 
     @Override
@@ -116,14 +188,19 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
             isPlaying = savedInstanceState.getBoolean("isPlaying");
             songID = savedInstanceState.getInt("songID");
         }
-        nameSong();
-        if (isPlaying) play(); else pause();
+        if (songID!=-1){
+            nameSong();
+            if (isPlaying) play(); else pause();
+        }
+
     }
 
 
     public void accessAndPlaySong(int nextOrPrevious){
-        mp.stop();
-        mp.reset();
+        if (songID !=-1) {
+            mp.stop();
+            mp.reset();
+        }
         songID = (songID + nextOrPrevious);
         if (songID < 0) songID = songs.size()-1;
         if (songID > songs.size()-1) songID = 0;
@@ -172,6 +249,7 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
     public void setSongID(int songID) {
         this.songID = songID;
     }
+
     public void pause(){
         pauseButton.setVisibility(ImageButton.INVISIBLE);
         playButton.setVisibility(ImageButton.VISIBLE);

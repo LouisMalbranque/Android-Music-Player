@@ -11,6 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/songMax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/songDuration"
+            app:layout_constraintTop_toBottomOf="@+id/songDuration" />
+
         <ImageButton
             android:id="@+id/accelerate"
             android:layout_width="50dp"
@@ -84,13 +92,13 @@
 
         <TextView
             android:id="@+id/songName"
-            android:freezesText="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="94dp"
+            android:layout_height="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="32dp"
-            android:text="TextView"
+            android:layout_marginBottom="136dp"
+            android:freezesText="true"
+            android:text="Titre"
             app:layout_constraintBottom_toTopOf="@+id/pauseButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -115,16 +123,33 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="255dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintBottom_toTopOf="@+id/songName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <SeekBar
+            android:id="@+id/songDuration"
+            android:layout_width="305dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="44dp"
+            app:layout_constraintBottom_toTopOf="@+id/pauseButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/SongProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/songDuration"
+            app:layout_constraintTop_toBottomOf="@+id/songDuration" />
 
 
     </android.support.constraint.ConstraintLayout>

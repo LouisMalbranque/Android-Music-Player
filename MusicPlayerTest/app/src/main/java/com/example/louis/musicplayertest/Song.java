@@ -6,7 +6,8 @@ import java.io.Serializable;
 public class Song implements Serializable {
     private String path;
     private String name;
-    public Song(){
+    public Song(String name){
+        this.name=name;
 
     }
     public Song(File f){

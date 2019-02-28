@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.SeekBar;
 
 
 import com.example.louis.musicplayertest.Adapter.SlideAdapter;
@@ -47,18 +48,18 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         listViewSliding=(ListView) findViewById(R.id.lv_sliding_menu);
         drawerLayout=findViewById(R.id.mainActivity);
         listSliding=new ArrayList<>();
 
-        listSliding.add(new Slide("BlackFragment"));
+        listSliding.add(new Slide("BlanckFragment"));
         listSliding.add(new Slide("Player"));
         listSliding.add(new Slide("ListSong"));
         listSliding.add(new Slide("Vue Combiné"));
@@ -70,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
         setTitle(listSliding.get(0).getTitle());
         listViewSliding.setItemChecked(0,true);
         drawerLayout.closeDrawer(listViewSliding);
-        //replaceFragment(0);
 
         listViewSliding.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        actionBarDrawerToggle=new ActionBarDrawerToggle(this,drawerLayout,R.string.drawer_opened,R.string.drawer_closed){
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.drawer_opened,R.string.drawer_closed){
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -98,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
         };
 
-        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+        //drawerLayout.setDrawerListener(actionBarDrawerToggle);
+
         try{
             System.out.println("Demande d'accès à la mémoire du telephone");
             if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
         }catch(Exception e){e.printStackTrace();}
 
-        final SearchView searchView = findViewById(R.id.searchBox);
+     /*   final SearchView searchView = findViewById(R.id.searchBox);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return false;
             }
-        });
+        });*/
 
  /*       final Button buttonLecteur = findViewById(R.id.buttonLecteur);
         buttonLecteur.setOnClickListener(new View.OnClickListener() {
