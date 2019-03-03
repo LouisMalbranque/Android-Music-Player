@@ -90,10 +90,12 @@ public class LoginActivity extends Activity {
     public void login() {
         final Switch loginSwitch = findViewById(R.id.loginSwitch);
 
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), Atttente.class);
         Bundle extras = new Bundle();
         extras.putString("log", getApplicationContext().getSharedPreferences("com.example.projet2.log", Context.MODE_PRIVATE).getString("login", null));
         startActivity(intent);
+
+        finish();
     }
 
 

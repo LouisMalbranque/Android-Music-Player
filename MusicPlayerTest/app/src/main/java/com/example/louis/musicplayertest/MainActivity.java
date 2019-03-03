@@ -1,29 +1,39 @@
 package com.example.louis.musicplayertest;
 
 import android.Manifest;
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.PorterDuff;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.SeekBar;
 
 
 import com.example.louis.musicplayertest.Adapter.SlideAdapter;
+import com.example.louis.musicplayertest.Fragment.AttenteFragment;
+import com.example.louis.musicplayertest.Fragment.BlankFragment;
+import com.example.louis.musicplayertest.Fragment.BlankFragment2;
 import com.example.louis.musicplayertest.Model.Slide;
 import com.example.louis.musicplayertest.StaticClass.*;
+import com.example.louis.musicplayertest.async.RechercheMusique;
 
 
 import java.io.File;
@@ -46,14 +56,22 @@ public class MainActivity extends AppCompatActivity {
     private ListView listViewSliding;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    AttenteFragment fragmentatt=new AttenteFragment();
 
 
+    private static Context sContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        sContext = getApplicationContext();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //getFragmentManager().beginTransaction().add(R.id.container, fragmentatt).commit();
+
+
 
         listViewSliding=(ListView) findViewById(R.id.lv_sliding_menu);
         drawerLayout=findViewById(R.id.mainActivity);
@@ -98,9 +116,9 @@ public class MainActivity extends AppCompatActivity {
 
         };
 
-        //drawerLayout.setDrawerListener(actionBarDrawerToggle);
 
-        try{
+
+        /*try{
             System.out.println("Demande d'accès à la mémoire du telephone");
             if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
                 //ask for permission
@@ -110,12 +128,14 @@ public class MainActivity extends AppCompatActivity {
             String addr = "";
 
             System.out.println("Recherches des musiques:");
+            //searchMusicFiles("/storage");
 
-            searchMusicFiles("/storage");
-            searchMusicFiles("/sdcard");
+            mMusiqueAsyncTask.execute("/storage");
+            //searchMusicFiles("/sdcard");
+            mMusiqueAsyncTask.execute("/sdcard");
             System.out.println(songs.size() + "musiques trouvées.");
 
-        }catch(Exception e){e.printStackTrace();}
+        }catch(Exception e){e.printStackTrace();}*/
 
      /*   final SearchView searchView = findViewById(R.id.searchBox);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -176,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment=null;
 
         switch(position){
+
             case 1:
                 fragment=Player.getInstance();
                 break;
@@ -225,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
         transaction = manager.beginTransaction();
         transaction.remove(Player.getInstance());
         transaction.remove(ListSong.getInstance());
+
         transaction.commit();
     }
 
@@ -268,6 +290,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         actionBarDrawerToggle.syncState();
+    }
+
+    public static Context getContext() {
+        return sContext;
     }
 }
 
