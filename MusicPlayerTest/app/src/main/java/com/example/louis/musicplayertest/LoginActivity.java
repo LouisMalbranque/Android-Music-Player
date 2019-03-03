@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.louis.musicplayertest.Fragment.InscriptionFragment;
+import com.example.louis.musicplayertest.pojo.User;
 
 
 public class LoginActivity extends Activity {
@@ -78,6 +79,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 getFragmentManager().beginTransaction().add(R.id.container, inscription_frag).commit();
+
             }
         });
 

@@ -17,6 +17,7 @@ import com.example.louis.musicplayertest.pojo.User;
 
 
 public class InscriptionFragment extends Fragment {
+
     private ajoutBDD muserAsyncTask;
     private changementListeUtilisateur mListener;
 
@@ -45,11 +46,15 @@ public class InscriptionFragment extends Fragment {
                 nouvelUtilisateur.id=new_login.getText().toString();
                 Toast.makeText(LoginActivity.getContext(), "Vous êtes inscrit", Toast.LENGTH_LONG).show();
                 muserAsyncTask.execute(nouvelUtilisateur);
+                getFragmentManager().beginTransaction().remove(InscriptionFragment.this).commit();
             }
 
         });
 
+
     }
+
+
 
 
 }
