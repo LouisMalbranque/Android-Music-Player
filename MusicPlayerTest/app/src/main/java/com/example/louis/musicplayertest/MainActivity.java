@@ -71,13 +71,10 @@ public class MainActivity extends AppCompatActivity {
 
         //getFragmentManager().beginTransaction().add(R.id.container, fragmentatt).commit();
 
-
-
         listViewSliding=(ListView) findViewById(R.id.lv_sliding_menu);
         drawerLayout=findViewById(R.id.mainActivity);
         listSliding=new ArrayList<>();
 
-        listSliding.add(new Slide("BlanckFragment"));
         listSliding.add(new Slide("Player"));
         listSliding.add(new Slide("Mes musiques"));
         listSliding.add(new Slide("Liste de lecture"));
@@ -115,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         };
-
 
 
         try{
@@ -197,21 +193,16 @@ public class MainActivity extends AppCompatActivity {
 
         switch(position){
 
-            case 1:
+            case 0:
                 fragment=Player.getInstance();
                 break;
-            case 2:
+            case 1:
                 fragment = ListSong.getInstance();
                 break;
-            case 3:
-                manager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            case 2:
                 transaction = manager.beginTransaction();
                 transaction.remove(Player.getInstance());
-
-                manager.executePendingTransactions();
                 transaction.remove(ListSong.getInstance());
-
-                manager.executePendingTransactions();
                 transaction.commit();
                 Intent i = new Intent(MainActivity.this, MainCombined.class);
                 startActivity(i);
@@ -223,11 +214,11 @@ public class MainActivity extends AppCompatActivity {
 
 
                 }
-            if (null!=fragment && position!=3){
+            if (null!=fragment && position!=2){
                 manager=getFragmentManager();
                 transaction=manager.beginTransaction();
                 transaction.replace(R.id.fragment,fragment);
-                transaction.addToBackStack(null).commit();
+                transaction.commit();
         }
     }
     @Override
@@ -235,8 +226,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         manager = getFragmentManager();
         transaction = manager.beginTransaction();
-        transaction.add(R.id.fragment, Player.getInstance());
-        transaction.commit();
+        transaction.add(R.id.fragment, ListSong.getInstance()).commit();
     }
 
     @Override
@@ -295,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
     public static Context getContext() {
         return sContext;
     }
+
 }
 
 

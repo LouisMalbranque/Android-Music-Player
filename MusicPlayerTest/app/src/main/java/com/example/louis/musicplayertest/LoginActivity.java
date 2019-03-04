@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ public class LoginActivity extends Activity {
 
         String log = mesPreferences.getString("log", null);
         String pw = mesPreferences.getString("pw", null);
+        ImageView view = findViewById(R.id.imageView7);
 
         final TextView tv_login = (TextView)findViewById(R.id.loginText);
         final TextView tv_pw = (TextView)findViewById(R.id.passwordText);

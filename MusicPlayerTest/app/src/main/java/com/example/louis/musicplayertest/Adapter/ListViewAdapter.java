@@ -1,6 +1,7 @@
 package com.example.louis.musicplayertest.Adapter;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,7 @@ public class ListViewAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Player.getInstance().pause();
                 Player.getInstance().setSongID(position);
                 Player.getInstance().accessAndPlaySong(0);

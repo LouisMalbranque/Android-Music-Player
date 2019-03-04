@@ -65,6 +65,11 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
@@ -147,7 +152,12 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
                 mSeekBar.setMax(mp.getDuration());
                 final long Minutes=(mp.getDuration()/1000)/60;//converting into minutes
                 final int Seconds=((mp.getDuration()/1000)%60);//converting into seconds
-                songMax.setText(Minutes+":"+Seconds);
+                if (Seconds<10){
+                    songMax.setText(Minutes+":0"+Seconds);
+                }
+                else{
+                    songMax.setText(Minutes+":"+Seconds);
+                }
 
                 playCycle();
             }
@@ -163,7 +173,13 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
                 }
                 final long mMinutes=(progress/1000)/60;//converting into minutes
                 final int mSeconds=((progress/1000)%60);//converting into seconds
-                songProgress.setText(mMinutes+":"+mSeconds);
+                if (mSeconds<10){
+                    songProgress.setText(mMinutes+":0"+mSeconds);
+                }
+                else{
+                    songProgress.setText(mMinutes+":"+mSeconds);
+                }
+
 
                 final long Minutes=(mp.getDuration()/1000)/60;//converting into minutes
                 final int Seconds=((mp.getDuration()/1000)%60);//converting into seconds
@@ -247,8 +263,7 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
             Toast t = makeText(getContext(), songs.get(songID).getName(), Toast.LENGTH_LONG);
             t.setGravity(Gravity.TOP, 0, 150);
             t.show();
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (Exception e){ e.printStackTrace();
         }
 
     }

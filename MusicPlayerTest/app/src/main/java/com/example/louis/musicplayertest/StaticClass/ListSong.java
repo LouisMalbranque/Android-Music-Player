@@ -38,6 +38,7 @@ public class ListSong extends android.app.Fragment{
     private SearchView searchView;
 
     public static ListSong getInstance() {
+
         return ourInstance;
     }
 
