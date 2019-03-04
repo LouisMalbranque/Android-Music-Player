@@ -1,6 +1,7 @@
 package com.example.louis.musicplayertest.StaticClass;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.louis.musicplayertest.AsyncTasks.GetAlbumImage;
 import com.example.louis.musicplayertest.MainActivity;
 import com.example.louis.musicplayertest.Song;
 import com.example.louis.musicplayertest.R;
@@ -45,6 +47,7 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
     private ImageButton previousButton;
     private ImageButton forwardButton;
     private ImageButton backwardButton;
+
 
     private SeekBar sb;
     private SeekBar mSeekBar;
@@ -241,6 +244,7 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
     public void nameSong(){
         TextView nameSong=view.findViewById(R.id.songName);
         nameSong.setText(songs.get(songID).getName());
+        new GetAlbumImage().execute(songs.get(songID).getArtist(),songs.get(songID).getName(),view.findViewById(R.id.imageView));
     }
     public void newSong(){
         try {
