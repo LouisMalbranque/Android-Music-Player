@@ -43,7 +43,7 @@ public class InscriptionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Button loginButton = getActivity().findViewById(R.id.loginButton);
-                Button subscribeButton = getView().findViewById(R.id.inscription);
+                Button subscribeButton = getActivity().findViewById(R.id.inscription);
                 User nouvelUtilisateur= new User();
                 nouvelUtilisateur.text=new_pw.getText().toString();
                 nouvelUtilisateur.id=new_login.getText().toString();

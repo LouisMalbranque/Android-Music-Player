@@ -71,9 +71,7 @@ public class LoginActivity extends Activity {
                         tv_pw.setText(null);
                         login();
                     }
-
                 }
-
             }
         });
 
@@ -100,10 +98,7 @@ public class LoginActivity extends Activity {
         finish();
     }
 
-
-
     public static Context getContext() {
         return sContext;
     }
-
 }
