@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.example.louis.musicplayertest.Adapter.ListViewAdapter;
 import com.example.louis.musicplayertest.Adapter.SongAdapter;
 import com.example.louis.musicplayertest.MainActivity;
+import com.example.louis.musicplayertest.Recycler.RecyclerTouch;
 import com.example.louis.musicplayertest.Song;
 import com.example.louis.musicplayertest.R;
 
@@ -46,6 +47,7 @@ public class ListSong extends android.app.Fragment{
 
 
     private SearchView searchView;
+    public static int samesong=1;
 
     public static ListSong getInstance() {
 
@@ -58,40 +60,54 @@ public class ListSong extends android.app.Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        samesong=1;
         View view= inflater.inflate(R.layout.fragment_list_song, container, false);
 
-       /* recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         songAdapter = new SongAdapter(song);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator( new DefaultItemAnimator());
         recyclerView.setAdapter(songAdapter);
-        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+        recyclerView.addOnItemTouchListener(new RecyclerTouch(getContext(), recyclerView, new RecyclerTouch.ClickListener() {
             @Override
-            public boolean onInterceptTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
-                return false;
+            public void onClick(View view, int position) {
+                if (Player.getInstance().getSongID()!=position){
+                    samesong=0;
+                    Player.getInstance().setSongID(position);
+                    if(getContext().getClass()==MainActivity.class){
+                        getFragmentManager().beginTransaction().replace(R.id.fragment, Player.getInstance()).commit();
+                    }
+                    else{
+                        Player.getInstance().accessAndPlaySong(position);
+                    }
+                }
+                else{
+                    samesong=1;
+                    getFragmentManager().beginTransaction().replace(R.id.fragment, Player.getInstance()).commit();
+
+                }
             }
 
             @Override
-            public void onTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
+            public void onLongClick(View view, int position) {
 
             }
+        }));
 
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean b) {
 
-            }
-        });*/
-
-        listView=view.findViewById(R.id.ListSong);
 
 
         for (int i=0;i<song.size();i++){
             songname.add(song.get(i).getName());
         }
 
-        listView.setAdapter(new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1, songname));
+        //listView=view.findViewById(R.id.ListSong);
+
+
+        //////////////////////GERER PAR LE RECYCLER VIEW////////////////////////////////////////
+
+        /*listView.setAdapter(new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1, songname));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -105,16 +121,14 @@ public class ListSong extends android.app.Fragment{
                 }
 
             }
-        });
-
-
+        });*/
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         if (listViewAdapter==null){
             listViewAdapter = new ListViewAdapter(getContext(),song);
         }
 
-
-        listView.setAdapter(listViewAdapter);
+      //  listView.setAdapter(listViewAdapter);
 
         searchView=view.findViewById(R.id.txtsearch);
 
@@ -128,7 +142,7 @@ public class ListSong extends android.app.Fragment{
             public boolean onQueryTextChange(String newText) {
                 if (TextUtils.isEmpty(newText)){
                     listViewAdapter.filter("");
-                    listView.clearTextFilter();
+                    //listView.clearTextFilter();
                 }
                 else{
                     listViewAdapter.filter(newText);
@@ -136,12 +150,6 @@ public class ListSong extends android.app.Fragment{
                 return true;
             }
         });
-
-        System.out.println("create");
-
-
-
-
 
 
 
