@@ -16,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +30,7 @@ import android.widget.SeekBar;
 
 
 import com.example.louis.musicplayertest.Adapter.SlideAdapter;
+import com.example.louis.musicplayertest.Adapter.SongAdapter;
 import com.example.louis.musicplayertest.Fragment.AttenteFragment;
 import com.example.louis.musicplayertest.Fragment.BlankFragment;
 import com.example.louis.musicplayertest.Fragment.BlankFragment2;
@@ -52,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     public FragmentTransaction transaction;
     public android.app.FragmentManager manager;
 
+
+
     private List<Slide> listSliding;
     private SlideAdapter adapter;
     private ListView listViewSliding;
@@ -61,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private static Context sContext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

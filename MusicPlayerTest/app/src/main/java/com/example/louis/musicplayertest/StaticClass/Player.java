@@ -200,11 +200,9 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
 
         });
 
-        if (getContext().getClass()==MainActivity.class){
+        if (getContext().getClass()==MainActivity.class && songID!=-1){
             accessAndPlaySong(0);
         }
-
-
 
 
         return view;
@@ -268,6 +266,7 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
     public void nameSong(){
         TextView nameSong=view.findViewById(R.id.songName);
         nameSong.setText(songs.get(songID).getName());
+
         new GetAlbumImage().execute(songs.get(songID).getArtist(),songs.get(songID).getName(),view.findViewById(R.id.imageView));
     }
     public void newSong(){

@@ -3,8 +3,13 @@ package com.example.louis.musicplayertest.StaticClass;
 import android.content.Intent;
 import android.graphics.ColorSpace;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -14,6 +19,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.louis.musicplayertest.Adapter.ListViewAdapter;
+import com.example.louis.musicplayertest.Adapter.SongAdapter;
 import com.example.louis.musicplayertest.MainActivity;
 import com.example.louis.musicplayertest.Song;
 import com.example.louis.musicplayertest.R;
@@ -25,6 +31,10 @@ import java.util.Locale;
 public class ListSong extends android.app.Fragment{
 
     private static final ListSong ourInstance = new ListSong();
+
+    private RecyclerView recyclerView;
+
+    private SongAdapter songAdapter;
 
     List<Song> song= MainActivity.songs;
 
@@ -51,7 +61,31 @@ public class ListSong extends android.app.Fragment{
 
         View view= inflater.inflate(R.layout.fragment_list_song, container, false);
 
+       /* recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        songAdapter = new SongAdapter(song);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator( new DefaultItemAnimator());
+        recyclerView.setAdapter(songAdapter);
+        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean b) {
+
+            }
+        });*/
+
         listView=view.findViewById(R.id.ListSong);
+
 
         for (int i=0;i<song.size();i++){
             songname.add(song.get(i).getName());
@@ -72,6 +106,8 @@ public class ListSong extends android.app.Fragment{
 
             }
         });
+
+
 
         if (listViewAdapter==null){
             listViewAdapter = new ListViewAdapter(getContext(),song);
@@ -102,6 +138,13 @@ public class ListSong extends android.app.Fragment{
         });
 
         System.out.println("create");
+
+
+
+
+
+
+
         return view;
     }
 
