@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.louis.musicplayertest.MainActivity;
+import com.example.louis.musicplayertest.MainCombined;
 import com.example.louis.musicplayertest.Song;
 import com.example.louis.musicplayertest.R;
 
@@ -195,6 +196,13 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
             }
 
         });
+
+        if (getContext().getClass()==MainActivity.class){
+            accessAndPlaySong(0);
+        }
+
+
+
 
         return view;
     }

@@ -61,10 +61,15 @@ public class ListSong extends android.app.Fragment{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Player.getInstance().pause();
                 Player.getInstance().setSongID(position);
-                Player.getInstance().accessAndPlaySong(0);
-                Player.getInstance().play();
+
+                if(getContext().getClass()==MainActivity.class){
+                    getFragmentManager().beginTransaction().replace(R.id.fragment, Player.getInstance()).commit();
+                }
+                else{
+                    Player.getInstance().accessAndPlaySong(0);
+                }
+
             }
         });
 
