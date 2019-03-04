@@ -168,11 +168,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
             default:
                 break;
-
-
-
-
                 }
+
             if (null!=fragment && position!=2){
                 manager=getFragmentManager();
                 transaction=manager.beginTransaction();

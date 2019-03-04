@@ -26,7 +26,8 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
         android:scrollbars="vertical"
-        tools:itemCount="6" />
+        tools:itemCount="1" />
 
 </FrameLayout>

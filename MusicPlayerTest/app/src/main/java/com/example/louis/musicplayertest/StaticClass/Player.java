@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,7 +35,6 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
     public static Player getInstance() {
         return ourInstance;
     }
-
 
     private MediaPlayer mp=new MediaPlayer();
     private int songID = -1;
@@ -63,7 +63,7 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
     private TextView songMax;
 
 
-    private boolean isPlaying = false;
+    public boolean isPlaying = false;
 
     public Player() {
     }
@@ -72,6 +72,7 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
     public void onAttach(Context context) {
         super.onAttach(context);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -187,7 +188,12 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
 
                 final long Minutes=(mp.getDuration()/1000)/60;//converting into minutes
                 final int Seconds=((mp.getDuration()/1000)%60);//converting into seconds
-                songMax.setText(Minutes+":"+Seconds);
+                if (Seconds<10){
+                    songMax.setText(Minutes+":0"+Seconds);
+                }
+                else{
+                    songMax.setText(Minutes+":"+Seconds);
+                }
             }
 
             @Override
@@ -200,10 +206,15 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
 
         });
 
-        if (getContext().getClass()==MainActivity.class && songID!=-1){
-            accessAndPlaySong(0);
-        }
+        if (getContext().getClass()==MainActivity.class && songID!=-1 ){
+            if (Player.getInstance().isPlaying==false){
+                accessAndPlaySong(0);
+            }
+            else if (ListSong.samesong!=1){
+                accessAndPlaySong(0);
+            }
 
+        }
 
         return view;
     }
@@ -258,9 +269,12 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
         }
         catch (IOException e) { e.printStackTrace();
         }
-        play();
-        nameSong();
-        newSong();
+            play();
+            isPlaying=true;
+            nameSong();
+            newSong();
+
+
 
     }
     public void nameSong(){
@@ -319,5 +333,9 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
             return;
         }
         mp.seekTo(time);
+    }
+
+    public int getSongID() {
+        return songID;
     }
 }
