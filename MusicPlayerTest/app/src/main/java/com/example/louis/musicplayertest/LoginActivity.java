@@ -34,7 +34,7 @@ public class LoginActivity extends Activity {
 
         String log = mesPreferences.getString("log", null);
         String pw = mesPreferences.getString("pw", null);
-        ImageView view = findViewById(R.id.imageView7);
+        ImageView view = findViewById(R.id.imagespotify);
 
         final TextView tv_login = (TextView)findViewById(R.id.loginText);
         final TextView tv_pw = (TextView)findViewById(R.id.passwordText);
