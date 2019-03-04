@@ -26,39 +26,35 @@
             android:layout_width="275dp"
             android:layout_height="36dp"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="2dp"
             android:layout_marginTop="92dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:background="#f1f1f1"
             android:ems="10"
-            android:text="Enter your username"
             android:textColor="@color/colorAccent"
             android:textColorHint="@color/colorAccent"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Enter your username" />
 
         <EditText
             android:id="@+id/nouvMdp"
             android:layout_width="275dp"
             android:layout_height="36dp"
             android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:background="#f1f1f1"
             android:ems="10"
             android:inputType="text"
-            android:text="Enter your password"
             android:textColor="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nouvNom" />
+            app:layout_constraintTop_toBottomOf="@+id/nouvNom"
+            tools:text="Enter your password" />
 
         <Button
             android:id="@+id/inscrire"

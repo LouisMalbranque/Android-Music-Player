@@ -39,9 +39,9 @@ public class LoginActivity extends Activity {
         final TextView tv_login = (TextView)findViewById(R.id.loginText);
         final TextView tv_pw = (TextView)findViewById(R.id.passwordText);
 
-        Button loginButton = findViewById(R.id.loginButton);
+        final Button loginButton = findViewById(R.id.loginButton);
         final Switch loginSwitch = findViewById(R.id.loginSwitch);
-        Button subscribeButton = findViewById(R.id.inscription);
+        final Button subscribeButton = findViewById(R.id.inscription);
         final Button inscrireButton = findViewById(R.id.inscrire);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -80,15 +80,13 @@ public class LoginActivity extends Activity {
         subscribeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loginButton.setClickable(false);
+                subscribeButton.setClickable(false);
+                loginButton.setVisibility(View.INVISIBLE);
                 getFragmentManager().beginTransaction().add(R.id.container, inscription_frag).commit();
 
             }
         });
-
-
-
-
-
     }
 
     public void login() {

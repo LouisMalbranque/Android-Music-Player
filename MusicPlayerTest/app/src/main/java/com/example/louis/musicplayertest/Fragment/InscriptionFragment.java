@@ -36,16 +36,22 @@ public class InscriptionFragment extends Fragment {
         muserAsyncTask=new ajoutBDD(mListener);
 
         Button inscrireButton = getView().findViewById(R.id.inscrire);
+
         final TextView new_login = (TextView)getView().findViewById(R.id.nouvNom);
         final TextView new_pw = (TextView)getView().findViewById(R.id.nouvMdp);
         inscrireButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Button loginButton = getView().findViewById(R.id.loginButton);
+                Button subscribeButton = getView().findViewById(R.id.inscription);
                 User nouvelUtilisateur= new User();
                 nouvelUtilisateur.text=new_pw.getText().toString();
                 nouvelUtilisateur.id=new_login.getText().toString();
                 Toast.makeText(LoginActivity.getContext(), "Vous êtes inscrit", Toast.LENGTH_LONG).show();
                 muserAsyncTask.execute(nouvelUtilisateur);
+                loginButton.setClickable(true);
+                subscribeButton.setClickable(true);
+                loginButton.setVisibility(View.VISIBLE);
                 getFragmentManager().beginTransaction().remove(InscriptionFragment.this).commit();
             }
 
