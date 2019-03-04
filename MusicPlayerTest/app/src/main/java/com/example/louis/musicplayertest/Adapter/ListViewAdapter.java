@@ -67,16 +67,13 @@ public class ListViewAdapter extends BaseAdapter {
 
         holder.name.setText(songList.get(position).getName());
 
-        view.setOnClickListener(new View.OnClickListener() {
+      /*  view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Player.getInstance().pause();
                 Player.getInstance().setSongID(position);
                 Player.getInstance().accessAndPlaySong(0);
-                Player.getInstance().play();
             }
-        });
+        });*/
         return view;
     }
 

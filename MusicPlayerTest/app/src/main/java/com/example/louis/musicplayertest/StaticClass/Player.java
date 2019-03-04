@@ -195,6 +195,7 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
             }
 
         });
+        accessAndPlaySong(0);
 
         return view;
     }
