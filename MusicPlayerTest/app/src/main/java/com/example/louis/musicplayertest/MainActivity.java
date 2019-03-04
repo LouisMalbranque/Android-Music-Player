@@ -17,6 +17,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -133,59 +134,12 @@ public class MainActivity extends AppCompatActivity {
 
         }catch(Exception e){e.printStackTrace();}
 
-     /*   final SearchView searchView = findViewById(R.id.searchBox);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
+    }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                for (Song s : songs){
-                    if (s.getName().contains(newText)){
-                        System.out.println(s.getName());
-                    }
-                }
-                return false;
-            }
-        });*/
-
- /*       final Button buttonLecteur = findViewById(R.id.buttonLecteur);
-        buttonLecteur.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                transaction = manager.beginTransaction();
-                transaction.replace(R.id.fragment, Player.getInstance());
-                transaction.commit();
-            }
-        });
-
-        final Button buttonListSong = findViewById(R.id.buttonListSong);
-        buttonListSong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                transaction = manager.beginTransaction();
-                transaction.replace(R.id.fragment, ListSong.getInstance());
-                transaction.commit();
-            }
-        });
-        final Button buttonCombined = findViewById(R.id.buttonCombined);
-        buttonCombined.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                transaction = manager.beginTransaction();
-                transaction.remove(Player.getInstance());
-                transaction.remove(ListSong.getInstance());
-                transaction.commit();
-                Intent i = new Intent(MainActivity.this, MainCombined.class);
-                startActivity(i);
-            }
-        });
-*/
-
-
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.logout, menu);
+        return true;
     }
 
     private void replaceFragment(int position){
@@ -272,6 +226,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (actionBarDrawerToggle.onOptionsItemSelected(item)){
             return true;
+        }
+        if (item.getItemId()==R.id.Déconnexion){
+            Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

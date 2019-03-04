@@ -29,8 +29,6 @@ public class ListViewAdapter extends BaseAdapter {
         this.songList = songList;
         inflater = LayoutInflater.from(mContext);
         this.arrayList.addAll(songList);
-
-
     }
 
     public class ViewHolder{
