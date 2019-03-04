@@ -2,6 +2,7 @@ package com.example.louis.musicplayertest;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -12,15 +13,15 @@ import com.example.louis.musicplayertest.R;
 public class MainCombined extends AppCompatActivity {
 
     private FragmentManager manager;
-
+    private static Context sContext;
     private FragmentTransaction transaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_combined);
+        sContext=getContext();
         manager = getFragmentManager();
-        manager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     @Override
@@ -29,10 +30,8 @@ public class MainCombined extends AppCompatActivity {
 
         transaction = manager.beginTransaction();
         transaction.remove(Player.getInstance());
-        manager.executePendingTransactions();
         transaction.remove(ListSong.getInstance());
-        manager.executePendingTransactions();
-        transaction.addToBackStack(null).commit();
+        transaction.commit();
     }
 
     @Override
@@ -46,5 +45,9 @@ public class MainCombined extends AppCompatActivity {
         transaction = manager.beginTransaction();
         transaction.add(R.id.fragment_list_song, ListSong.getInstance());
         transaction.commit();
+    }
+
+    public static Context getContext() {
+        return sContext;
     }
 }

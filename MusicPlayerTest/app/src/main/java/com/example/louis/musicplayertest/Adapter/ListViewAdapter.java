@@ -1,6 +1,7 @@
 package com.example.louis.musicplayertest.Adapter;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +29,6 @@ public class ListViewAdapter extends BaseAdapter {
         this.songList = songList;
         inflater = LayoutInflater.from(mContext);
         this.arrayList.addAll(songList);
-
-
     }
 
     public class ViewHolder{
@@ -66,15 +65,13 @@ public class ListViewAdapter extends BaseAdapter {
 
         holder.name.setText(songList.get(position).getName());
 
-        view.setOnClickListener(new View.OnClickListener() {
+      /*  view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Player.getInstance().pause();
                 Player.getInstance().setSongID(position);
                 Player.getInstance().accessAndPlaySong(0);
-                Player.getInstance().play();
             }
-        });
+        });*/
         return view;
     }
 

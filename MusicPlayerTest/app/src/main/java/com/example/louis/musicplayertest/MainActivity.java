@@ -17,6 +17,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -71,13 +72,10 @@ public class MainActivity extends AppCompatActivity {
 
         //getFragmentManager().beginTransaction().add(R.id.container, fragmentatt).commit();
 
-
-
         listViewSliding=(ListView) findViewById(R.id.lv_sliding_menu);
         drawerLayout=findViewById(R.id.mainActivity);
         listSliding=new ArrayList<>();
 
-        listSliding.add(new Slide("BlanckFragment"));
         listSliding.add(new Slide("Player"));
         listSliding.add(new Slide("Mes musiques"));
         listSliding.add(new Slide("Liste de lecture"));
@@ -117,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
         };
 
 
-
         try{
             System.out.println("Demande d'accès à la mémoire du telephone");
             if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
@@ -137,59 +134,12 @@ public class MainActivity extends AppCompatActivity {
 
         }catch(Exception e){e.printStackTrace();}
 
-     /*   final SearchView searchView = findViewById(R.id.searchBox);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
+    }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                for (Song s : songs){
-                    if (s.getName().contains(newText)){
-                        System.out.println(s.getName());
-                    }
-                }
-                return false;
-            }
-        });*/
-
- /*       final Button buttonLecteur = findViewById(R.id.buttonLecteur);
-        buttonLecteur.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                transaction = manager.beginTransaction();
-                transaction.replace(R.id.fragment, Player.getInstance());
-                transaction.commit();
-            }
-        });
-
-        final Button buttonListSong = findViewById(R.id.buttonListSong);
-        buttonListSong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                transaction = manager.beginTransaction();
-                transaction.replace(R.id.fragment, ListSong.getInstance());
-                transaction.commit();
-            }
-        });
-        final Button buttonCombined = findViewById(R.id.buttonCombined);
-        buttonCombined.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                transaction = manager.beginTransaction();
-                transaction.remove(Player.getInstance());
-                transaction.remove(ListSong.getInstance());
-                transaction.commit();
-                Intent i = new Intent(MainActivity.this, MainCombined.class);
-                startActivity(i);
-            }
-        });
-*/
-
-
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.logout, menu);
+        return true;
     }
 
     private void replaceFragment(int position){
@@ -197,21 +147,16 @@ public class MainActivity extends AppCompatActivity {
 
         switch(position){
 
-            case 1:
+            case 0:
                 fragment=Player.getInstance();
                 break;
-            case 2:
+            case 1:
                 fragment = ListSong.getInstance();
                 break;
-            case 3:
-                manager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            case 2:
                 transaction = manager.beginTransaction();
                 transaction.remove(Player.getInstance());
-
-                manager.executePendingTransactions();
                 transaction.remove(ListSong.getInstance());
-
-                manager.executePendingTransactions();
                 transaction.commit();
                 Intent i = new Intent(MainActivity.this, MainCombined.class);
                 startActivity(i);
@@ -223,11 +168,11 @@ public class MainActivity extends AppCompatActivity {
 
 
                 }
-            if (null!=fragment && position!=3){
+            if (null!=fragment && position!=2){
                 manager=getFragmentManager();
                 transaction=manager.beginTransaction();
                 transaction.replace(R.id.fragment,fragment);
-                transaction.addToBackStack(null).commit();
+                transaction.commit();
         }
     }
     @Override
@@ -235,8 +180,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         manager = getFragmentManager();
         transaction = manager.beginTransaction();
-        transaction.add(R.id.fragment, Player.getInstance());
-        transaction.commit();
+        transaction.add(R.id.fragment, ListSong.getInstance()).commit();
     }
 
     @Override
@@ -283,6 +227,10 @@ public class MainActivity extends AppCompatActivity {
         if (actionBarDrawerToggle.onOptionsItemSelected(item)){
             return true;
         }
+        if (item.getItemId()==R.id.Déconnexion){
+            Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -295,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
     public static Context getContext() {
         return sContext;
     }
+
 }
 
 

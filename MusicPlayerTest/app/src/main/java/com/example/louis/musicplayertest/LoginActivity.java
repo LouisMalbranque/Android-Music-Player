@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,13 +34,14 @@ public class LoginActivity extends Activity {
 
         String log = mesPreferences.getString("log", null);
         String pw = mesPreferences.getString("pw", null);
+        ImageView view = findViewById(R.id.imageView7);
 
         final TextView tv_login = (TextView)findViewById(R.id.loginText);
         final TextView tv_pw = (TextView)findViewById(R.id.passwordText);
 
-        Button loginButton = findViewById(R.id.loginButton);
+        final Button loginButton = findViewById(R.id.loginButton);
         final Switch loginSwitch = findViewById(R.id.loginSwitch);
-        Button subscribeButton = findViewById(R.id.inscription);
+        final Button subscribeButton = findViewById(R.id.inscription);
         final Button inscrireButton = findViewById(R.id.inscrire);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -69,24 +71,20 @@ public class LoginActivity extends Activity {
                         tv_pw.setText(null);
                         login();
                     }
-
                 }
-
             }
         });
 
         subscribeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                subscribeButton.setClickable(false);
+
+                loginButton.setVisibility(View.GONE);
                 getFragmentManager().beginTransaction().add(R.id.container, inscription_frag).commit();
 
             }
         });
-
-
-
-
-
     }
 
     public void login() {
@@ -100,10 +98,7 @@ public class LoginActivity extends Activity {
         finish();
     }
 
-
-
     public static Context getContext() {
         return sContext;
     }
-
 }
