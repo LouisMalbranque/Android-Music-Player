@@ -80,9 +80,9 @@ public class LoginActivity extends Activity {
         subscribeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginButton.setClickable(false);
                 subscribeButton.setClickable(false);
-                loginButton.setVisibility(View.INVISIBLE);
+
+                loginButton.setVisibility(View.GONE);
                 getFragmentManager().beginTransaction().add(R.id.container, inscription_frag).commit();
 
             }
