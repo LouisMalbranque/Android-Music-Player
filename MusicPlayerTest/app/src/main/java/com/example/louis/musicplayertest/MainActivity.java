@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        /*try{
+        try{
             System.out.println("Demande d'accès à la mémoire du telephone");
             if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
                 //ask for permission
@@ -128,14 +128,14 @@ public class MainActivity extends AppCompatActivity {
             String addr = "";
 
             System.out.println("Recherches des musiques:");
-            //searchMusicFiles("/storage");
+            searchMusicFiles("/storage");
 
-            mMusiqueAsyncTask.execute("/storage");
-            //searchMusicFiles("/sdcard");
-            mMusiqueAsyncTask.execute("/sdcard");
+            //mMusiqueAsyncTask.execute("/storage");
+            searchMusicFiles("/sdcard");
+            //mMusiqueAsyncTask.execute("/sdcard");
             System.out.println(songs.size() + "musiques trouvées.");
 
-        }catch(Exception e){e.printStackTrace();}*/
+        }catch(Exception e){e.printStackTrace();}
 
      /*   final SearchView searchView = findViewById(R.id.searchBox);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

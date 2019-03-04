@@ -12,4 +12,11 @@
         android:text="Button"
         tools:layout_editor_absoluteX="161dp"
         tools:layout_editor_absoluteY="341dp" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="245dp"
+        android:layout_height="255dp"
+        android:layout_gravity="center"
+        android:indeterminate="true" />
 </RelativeLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="round_corner_size">6dp</dimen>
+
+    <!-- LOGIN -->
+    <dimen name="login_root_padding">5dp</dimen>
+    <dimen name="login_center_panel_padding">10dp</dimen>
+    <dimen name="login_center_panel_left_margin">30dp</dimen>
+    <dimen name="login_center_panel_right_margin">30dp</dimen>
+    <dimen name="login_center_panel_top_margin">100dp</dimen>
+    <dimen name="login_center_panel_content_top_margin">10dp</dimen>
+</resources>
