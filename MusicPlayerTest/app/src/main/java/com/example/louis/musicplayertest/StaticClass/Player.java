@@ -280,6 +280,8 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
     public void nameSong(){
         TextView nameSong=view.findViewById(R.id.songName);
         nameSong.setText(songs.get(songID).getName());
+        TextView songArtist = view.findViewById(R.id.songArtist);
+        songArtist.setText(songs.get(songID).getArtist());
 
         new GetAlbumImage().execute(songs.get(songID).getArtist(),songs.get(songID).getName(),view.findViewById(R.id.imageView));
     }

@@ -23,6 +23,7 @@
             android:src="@mipmap/ic_launcher"
             app:layout_constraintBottom_toTopOf="@+id/songName"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,6 +43,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
+        <TextView
+            android:id="@+id/songArtist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:text="Artiste"
+            android:textColor="#AFAFAF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/songName" />
+
         <SeekBar
             android:id="@+id/songDuration"
             android:layout_width="0dp"
@@ -53,9 +70,9 @@
             android:paddingBottom="10dp"
             android:progressDrawable="@drawable/custom_drawable"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/songName" />
+            app:layout_constraintTop_toBottomOf="@+id/songArtist" />
 
         <TextView
             android:id="@+id/SongProgress"
@@ -168,8 +185,7 @@
             android:progressDrawable="@drawable/custom_drawable"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pauseButton"
-            tools:background="#afafaf" />
+            app:layout_constraintTop_toBottomOf="@+id/pauseButton" />
 
 
     </android.support.constraint.ConstraintLayout>
