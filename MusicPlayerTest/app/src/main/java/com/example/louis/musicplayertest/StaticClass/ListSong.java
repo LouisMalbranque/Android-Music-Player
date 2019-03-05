@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -24,6 +25,8 @@ import com.example.louis.musicplayertest.MainActivity;
 import com.example.louis.musicplayertest.Recycler.RecyclerTouch;
 import com.example.louis.musicplayertest.Song;
 import com.example.louis.musicplayertest.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,14 +63,18 @@ public class ListSong extends android.app.Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        samesong=1;
+
         View view= inflater.inflate(R.layout.fragment_list_song, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        songAdapter = new SongAdapter(song);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator( new DefaultItemAnimator());
+
+        if (songAdapter==null){
+            songAdapter = new SongAdapter(getContext(),song);
+        }
+
         recyclerView.setAdapter(songAdapter);
         recyclerView.addOnItemTouchListener(new RecyclerTouch(getContext(), recyclerView, new RecyclerTouch.ClickListener() {
             @Override
@@ -88,26 +95,23 @@ public class ListSong extends android.app.Fragment{
 
                 }
             }
-
             @Override
             public void onLongClick(View view, int position) {
 
             }
+
         }));
-
-
-
 
         for (int i=0;i<song.size();i++){
             songname.add(song.get(i).getName());
         }
 
-        //listView=view.findViewById(R.id.ListSong);
+        samesong=1;
 
 
         //////////////////////GERER PAR LE RECYCLER VIEW////////////////////////////////////////
-
-        /*listView.setAdapter(new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1, songname));
+        /*listView=view.findViewById(R.id.ListSong);
+        listView.setAdapter(new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1, songname));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -121,31 +125,37 @@ public class ListSong extends android.app.Fragment{
                 }
 
             }
-        });*/
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        });
+
 
         if (listViewAdapter==null){
             listViewAdapter = new ListViewAdapter(getContext(),song);
-        }
+        }*/
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      //  listView.setAdapter(listViewAdapter);
 
+
+        
         searchView=view.findViewById(R.id.txtsearch);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String newText) {
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+
                 if (TextUtils.isEmpty(newText)){
-                    listViewAdapter.filter("");
+                    songAdapter.filter("");
+                    //listViewAdapter.filter("");
                     //listView.clearTextFilter();
+
                 }
                 else{
-                    listViewAdapter.filter(newText);
+                    songAdapter.filter(newText);
+                    //listViewAdapter.filter(newText);
                 }
                 return true;
             }
