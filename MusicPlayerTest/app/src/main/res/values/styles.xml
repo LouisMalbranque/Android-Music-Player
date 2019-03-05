@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+
     </style>
     <style parent="Theme.AppCompat.Light" name="SCBSwitch">
 
@@ -23,6 +25,7 @@
 
 
     <item name="android:colorForeground">#42221f1f</item>
+
 
 </style>
 

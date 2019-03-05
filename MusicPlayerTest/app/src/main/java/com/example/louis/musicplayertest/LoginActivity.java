@@ -30,6 +30,7 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
 
 
+
         final SharedPreferences mesPreferences = getApplicationContext().getSharedPreferences("com.example.projet2.log", Context.MODE_PRIVATE);
 
         String log = mesPreferences.getString("log", null);

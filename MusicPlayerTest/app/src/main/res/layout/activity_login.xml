@@ -44,15 +44,104 @@
         tools:text="SPOTIFY"
         tools:textSize="36sp" />
 
-    <EditText android:background="#000000" android:layout_height="39dp" android:layout_width="wrap_content" android:id="@+id/loginText" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:textColor="#afafaf" android:layout_marginRight="8dp" android:layout_marginEnd="8dp" android:layout_marginLeft="8dp" android:layout_marginStart="8dp" app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.503" app:layout_constraintCircleRadius="@dimen/round_corner_size" android:textColorHint="#afafaf" android:inputType="textPersonName" android:hint="Username" android:ems="10" android:layout_marginTop="184dp"/>
+    <EditText
+        android:id="@+id/loginText"
+        android:layout_width="wrap_content"
+        android:layout_height="39dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="184dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#000000"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        android:textColor="#afafaf"
+        android:textColorHint="#afafaf"
+        app:layout_constraintCircleRadius="@dimen/round_corner_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText android:background="#000000" android:layout_height="33dp" android:layout_width="wrap_content" android:id="@+id/passwordText" app:layout_constraintTop_toBottomOf="@+id/loginText" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:textColor="#afafaf" android:layout_marginRight="8dp" android:layout_marginEnd="8dp" android:layout_marginLeft="8dp" android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.503" android:textColorHint="#afafaf" android:inputType="textPassword" android:hint="Password" android:ems="10" android:layout_marginTop="16dp"/>
+    <EditText
+        android:id="@+id/passwordText"
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#000000"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="#afafaf"
+        android:textColorHint="#afafaf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginText" />
 
-    <Button android:background="#000000" android:layout_height="48dp" android:layout_width="79dp" android:id="@+id/loginButton" tools:text="Log In" android:text="Log In" app:layout_constraintTop_toBottomOf="@+id/passwordText" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:textColor="#f1f1f1" android:layout_marginRight="8dp" android:layout_marginEnd="8dp" android:layout_marginLeft="8dp" android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.501" app:layout_constraintCircleRadius="@dimen/round_corner_size" android:layout_marginTop="28dp" android:padding="@dimen/round_corner_size"/>
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="79dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#000000"
+        android:padding="@dimen/round_corner_size"
+        android:text="Log In"
+        android:textColor="#f1f1f1"
+        app:layout_constraintCircleRadius="@dimen/round_corner_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordText"
+        tools:text="Log In" />
 
-    <Switch android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/loginSwitch" android:text="Remember Me" app:layout_constraintTop_toBottomOf="@+id/loginButton" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:textColor="#000000" android:layout_marginRight="8dp" android:layout_marginEnd="8dp" android:layout_marginLeft="8dp" android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.502" android:layout_marginTop="24dp" android:theme="@style/SCBSwitch" android:checked="false" android:layout_alignParentRight="true"/>
+    <Switch
+        android:id="@+id/loginSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:checked="false"
+        android:text="Remember Me"
+        android:textColor="#000000"
+        android:theme="@style/SCBSwitch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
-    <Button android:background="#000000" android:layout_height="23dp" android:layout_width="wrap_content" android:id="@+id/inscription" android:text="Subscribe" app:layout_constraintVertical_bias="0.247" app:layout_constraintTop_toBottomOf="@+id/loginSwitch" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent" android:textColor="#FFFFFF" android:layout_marginBottom="8dp" android:layout_marginRight="8dp" android:layout_marginEnd="8dp" android:layout_marginLeft="8dp" android:layout_marginStart="8dp" android:layout_marginTop="8dp" app:layout_constraintBottom_toBottomOf="parent"/>
+    <Button
+        android:id="@+id/inscription"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#000000"
+        android:text="Subscribe"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginSwitch"
+        app:layout_constraintVertical_bias="0.247" />
 
 
     <FrameLayout
