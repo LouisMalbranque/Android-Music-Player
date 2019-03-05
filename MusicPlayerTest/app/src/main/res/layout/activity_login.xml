@@ -41,7 +41,6 @@
         app:layout_constraintBottom_toTopOf="@+id/loginText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="SPOTIFY"
         tools:textSize="36sp" />
 
     <EditText

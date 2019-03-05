@@ -3,9 +3,12 @@
     <item>
 
         <shape>
+            <corners android:radius="10dip"/>
             <gradient android:useLevel="true"
-                android:startColor="#560"
-                android:endColor="#454455"/>
+                android:startColor="#f1f1f1"
+                android:endColor="#f1f1f1"
+                
+                 />
         </shape>
     </item>
 </layer-list>
