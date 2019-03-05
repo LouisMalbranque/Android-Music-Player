@@ -10,6 +10,8 @@ public class Song implements Serializable {
     private String name;
     private String artist;
     private String date;
+    private String album;
+    private String duration;
 
     public Song(){
 
@@ -21,6 +23,8 @@ public class Song implements Serializable {
         name = mmdr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
         artist = mmdr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
         date = mmdr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DATE);
+        duration = Integer.toString(Integer.parseInt(mmdr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)) / 60000) + ":" + Integer.toString((Integer.parseInt(mmdr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)) - ((Integer.parseInt(mmdr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)) / 60000) * 60000)) / 1000);
+        album = mmdr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
     }
     public String getPath(){
         return path;
@@ -34,4 +38,6 @@ public class Song implements Serializable {
     public String getDate(){
         return date;
     }
+    public String getAlbum() { return album; }
+    public String getDuration() { return duration; }
 }
