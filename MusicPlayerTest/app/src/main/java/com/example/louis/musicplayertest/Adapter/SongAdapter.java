@@ -24,10 +24,16 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
+        public TextView artist;
+        public TextView album;
+        public TextView duration;
 
         public MyViewHolder(View view) {
             super(view);
             title=(TextView) view.findViewById(R.id.titre_chanson);
+            artist=(TextView) view.findViewById(R.id.artiste_chanson);
+            album=(TextView) view.findViewById(R.id.album_chanson);
+            duration=(TextView) view.findViewById(R.id.duree_chanson);
 
         }
     }
@@ -47,6 +53,9 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.MyViewHolder> 
     public void onBindViewHolder(MyViewHolder myViewHolder, int position) {
         Song song=songList.get(position);
         myViewHolder.title.setText(song.getName());
+        myViewHolder.album.setText(song.getAlbum());
+        myViewHolder.artist.setText(song.getArtist());
+        myViewHolder.duration.setText(song.getDuration());
     }
 
 
