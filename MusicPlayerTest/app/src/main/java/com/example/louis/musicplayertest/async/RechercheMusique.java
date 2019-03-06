@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 
 import com.example.louis.musicplayertest.Song;
 import com.example.louis.musicplayertest.StaticClass.ListSong;
+import com.example.louis.musicplayertest.interfaces.RechercheMus;
+import com.example.louis.musicplayertest.interfaces.chargementUtilisateurs;
 
 import java.io.File;
 import java.util.List;
@@ -11,7 +13,8 @@ import java.util.List;
 import static com.example.louis.musicplayertest.MainActivity.songs;
 
 public class RechercheMusique extends AsyncTask<Void,Void, List<Song>> {
-
+    private RechercheMus mListenerR;
+    public RechercheMusique(RechercheMus mListenerR) {this.mListenerR=mListenerR; }
 
 
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1524515;
@@ -63,6 +66,6 @@ public class RechercheMusique extends AsyncTask<Void,Void, List<Song>> {
 
     @Override
     protected void onPostExecute(List<Song> songs) {
-        super.onPostExecute(songs);
+        mListenerR.finRecherche();
     }
 }

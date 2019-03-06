@@ -31,7 +31,7 @@ import android.widget.SeekBar;
 
 import com.example.louis.musicplayertest.Adapter.SlideAdapter;
 import com.example.louis.musicplayertest.Adapter.SongAdapter;
-import com.example.louis.musicplayertest.Fragment.AttenteFragment;
+
 import com.example.louis.musicplayertest.Fragment.BlankFragment;
 import com.example.louis.musicplayertest.Fragment.BlankFragment2;
 import com.example.louis.musicplayertest.Model.Slide;
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView listViewSliding;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    AttenteFragment fragmentatt=new AttenteFragment();
+
 
 
     private static Context sContext;
@@ -120,24 +120,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
 
-        try{
-            System.out.println("Demande d'accès à la mémoire du telephone");
-            if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
-                //ask for permission
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-            }
 
-            String addr = "";
-
-            System.out.println("Recherches des musiques:");
-            searchMusicFiles("/storage");
-
-            //mMusiqueAsyncTask.execute("/storage");
-            searchMusicFiles("/sdcard");
-            //mMusiqueAsyncTask.execute("/sdcard");
-            System.out.println(songs.size() + "musiques trouvées.");
-
-        }catch(Exception e){e.printStackTrace();}
 
     }
 

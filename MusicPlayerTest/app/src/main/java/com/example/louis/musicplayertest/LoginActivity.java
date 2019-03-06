@@ -69,7 +69,7 @@ public class LoginActivity extends Activity implements chargementUtilisateurs{
     public void login() {
        final Switch loginSwitch = findViewById(R.id.loginSwitch);
 
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), Atttente.class);
         Bundle extras = new Bundle();
         extras.putString("log", getApplicationContext().getSharedPreferences("com.example.projet2.log", Context.MODE_PRIVATE).getString("login", null));
         startActivity(intent);
@@ -130,11 +130,14 @@ public class LoginActivity extends Activity implements chargementUtilisateurs{
                                 else{
                                     Toast.makeText(getApplicationContext(), "Le mot de passe ne correspond pas", Toast.LENGTH_LONG).show();
                                 }
-                            break;
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Cet Utilisateur n'existe pas", Toast.LENGTH_LONG).show();
-
+                                break;
                             }
+                            else {
+                                if(i==loginBDD.length) {
+                                    Toast.makeText(getApplicationContext(), "Cet Utilisateur n'existe pas", Toast.LENGTH_LONG).show();
+                                }
+                            }
+
                         }
                     } }
 }
