@@ -47,12 +47,10 @@ public class InscriptionFragment extends Fragment implements changementListeUtil
                 User nouvelUtilisateur = new User();
                 nouvelUtilisateur.text = new_pw.getText().toString();
                 nouvelUtilisateur.id = new_login.getText().toString();
-                if (TextUtils.isEmpty(((TextView) getActivity().findViewById(R.id.loginText)).getText())) {
+                if (TextUtils.isEmpty(((TextView) getActivity().findViewById(R.id.nouvNom)).getText())) {
                     Toast.makeText(getActivity().getApplicationContext(), "Entrez un login", Toast.LENGTH_LONG).show();
-                    getFragmentManager().beginTransaction().remove(InscriptionFragment.this).commit();
-                } else if (TextUtils.isEmpty(((TextView) getActivity().findViewById(R.id.passwordText)).getText())) {
+                } else if (TextUtils.isEmpty(((TextView) getActivity().findViewById(R.id.nouvMdp)).getText())) {
                     Toast.makeText(getActivity().getApplicationContext(), "Entrez un mot de passe", Toast.LENGTH_LONG).show();
-                    getFragmentManager().beginTransaction().remove(InscriptionFragment.this).commit();
                 } else {
                     muserAsyncTask.execute(nouvelUtilisateur);
                 }
