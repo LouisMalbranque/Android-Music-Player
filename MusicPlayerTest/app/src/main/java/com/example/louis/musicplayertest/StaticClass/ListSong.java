@@ -86,7 +86,8 @@ public class ListSong extends android.app.Fragment{
                         getFragmentManager().beginTransaction().replace(R.id.fragment, Player.getInstance()).commit();
                     }
                     else{
-                        Player.getInstance().accessAndPlaySong(position);
+                        Player.getInstance().setSongID(position );
+                        Player.getInstance().accessAndPlaySong(0);
                     }
                 }
                 else{
