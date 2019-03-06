@@ -126,14 +126,16 @@ public class LoginActivity extends Activity implements chargementUtilisateurs{
                                     tv_login.setText(null);
                                     tv_pw.setText(null);
                                     login();
-                                }}
+                                }
+                                break;
+                                }
                                 else{
                                     Toast.makeText(getApplicationContext(), "Le mot de passe ne correspond pas", Toast.LENGTH_LONG).show();
                                 }
-                                break;
+
                             }
                             else {
-                                if(i==loginBDD.length) {
+                                if(i==loginBDD.length-1) {
                                     Toast.makeText(getApplicationContext(), "Cet Utilisateur n'existe pas", Toast.LENGTH_LONG).show();
                                 }
                             }
