@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+
 public class ListSong extends android.app.Fragment{
 
     private static final ListSong ourInstance = new ListSong();
@@ -83,6 +84,7 @@ public class ListSong extends android.app.Fragment{
                     samesong=0;
                     Player.getInstance().setSongID(position);
                     if(getContext().getClass()==MainActivity.class){
+                        getActivity().setTitle("Player");
                         getFragmentManager().beginTransaction().replace(R.id.fragment, Player.getInstance()).commit();
                     }
                     else{
@@ -91,9 +93,11 @@ public class ListSong extends android.app.Fragment{
                     }
                 }
                 else{
-                    samesong=1;
-                    getFragmentManager().beginTransaction().replace(R.id.fragment, Player.getInstance()).commit();
-
+                    if(getContext().getClass()==MainActivity.class){
+                        getActivity().setTitle("Player");
+                        samesong=1;
+                        getFragmentManager().beginTransaction().replace(R.id.fragment, Player.getInstance()).commit();
+                    }
                 }
             }
             @Override

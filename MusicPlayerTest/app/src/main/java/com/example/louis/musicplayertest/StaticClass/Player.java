@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +34,7 @@ import java.util.TimerTask;
 
 import static android.widget.Toast.makeText;
 
-public class Player extends android.app.Fragment implements SeekBar.OnSeekBarChangeListener{
+public class Player extends android.app.Fragment implements SeekBar.OnSeekBarChangeListener {
     private static final Player ourInstance = new Player();
 
     public static Player getInstance() {
@@ -81,6 +82,7 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+
 
         view= inflater.inflate(R.layout.fragment_player, container, false);
 
