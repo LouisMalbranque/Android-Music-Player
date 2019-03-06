@@ -44,6 +44,20 @@ public class LoginActivity extends Activity implements chargementUtilisateurs{
         final Button loginButton = findViewById(R.id.loginButton);
 
         final Button subscribeButton = findViewById(R.id.inscription);
+        final SharedPreferences mesPreferences = getApplicationContext().getSharedPreferences("com.example.projet2.log", Context.MODE_PRIVATE);
+
+        String log = mesPreferences.getString("log", null);
+        String pw = mesPreferences.getString("pw", null);
+
+        final TextView tv_login = (TextView) findViewById(R.id.loginText);
+        final TextView tv_pw = (TextView) findViewById(R.id.passwordText);
+
+        if (log != null && pw != null) {
+            tv_login.setText(log);
+            tv_pw.setText(pw);
+        }
+
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,12 +130,11 @@ public class LoginActivity extends Activity implements chargementUtilisateurs{
                                     prefs_edit.putString("pw", tv_pw.getText().toString());
                                     prefs_edit.commit();
                                     log = mesPreferences.getString("log", null);
-                                    Toast.makeText(getApplicationContext(), log, Toast.LENGTH_LONG).show();
                                     login();
                                 } else {
                                     SharedPreferences.Editor prefs_edit = mesPreferences.edit();
-                                    prefs_edit.putString(null, tv_login.getText().toString());
-                                    prefs_edit.putString(null, tv_pw.getText().toString());
+                                    prefs_edit.putString("log", null);
+                                    prefs_edit.putString("pw", null);
                                     prefs_edit.commit();
                                     tv_login.setText(null);
                                     tv_pw.setText(null);

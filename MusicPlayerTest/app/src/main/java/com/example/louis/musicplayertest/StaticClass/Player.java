@@ -2,6 +2,7 @@ package com.example.louis.musicplayertest.StaticClass;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -23,6 +25,8 @@ import com.example.louis.musicplayertest.Song;
 import com.example.louis.musicplayertest.R;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -282,7 +286,7 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
         nameSong.setText(songs.get(songID).getName());
         TextView songArtist = view.findViewById(R.id.songArtist);
         songArtist.setText(songs.get(songID).getArtist());
-
+        //Trying applying album photo or applying default image
         new GetAlbumImage().execute(songs.get(songID).getArtist(),songs.get(songID).getName(),view.findViewById(R.id.imageView));
     }
     public void newSong(){
