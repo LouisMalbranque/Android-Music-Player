@@ -17,62 +17,60 @@
             android:layout_width="0dp"
             android:layout_height="255dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="100dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="40dp"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintBottom_toTopOf="@+id/songName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/songName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
             android:freezesText="true"
             android:gravity="center"
             android:text="Titre"
             android:textSize="15sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/songArtist"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/songArtist"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="40dp"
             android:gravity="center"
             android:text="Artiste"
             android:textColor="#AFAFAF"
             android:textSize="15sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/songDuration"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/songName" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <SeekBar
             android:id="@+id/songDuration"
             android:layout_width="0dp"
             android:layout_height="26dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:progressDrawable="@drawable/custom_drawable"
+            app:layout_constraintBottom_toTopOf="@+id/pauseButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/songArtist" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/SongProgress"
@@ -116,12 +114,13 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="40dp"
             android:background="@drawable/play"
+            app:layout_constraintBottom_toTopOf="@+id/sbVolume"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/songDuration" />
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageButton
             android:id="@+id/pauseButton"
@@ -132,9 +131,9 @@
             android:background="@drawable/pause"
             android:saveEnabled="true"
             android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/playButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/playButton" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageButton
             android:id="@+id/forwardButton"
@@ -164,11 +163,10 @@
             android:layout_width="36dp"
             android:layout_height="28dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="40dp"
             android:src="@drawable/son"
+            app:layout_constraintBottom_toBottomOf="@+id/sbVolume"
             app:layout_constraintEnd_toStartOf="@+id/sbVolume"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pauseButton" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <SeekBar
             android:id="@+id/sbVolume"
@@ -176,16 +174,16 @@
             android:layout_height="26dp"
             android:layout_centerInParent="true"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="40dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="32dp"
             android:max="200"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:progress="0"
             android:progressDrawable="@drawable/custom_drawable"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pauseButton" />
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </android.support.constraint.ConstraintLayout>
