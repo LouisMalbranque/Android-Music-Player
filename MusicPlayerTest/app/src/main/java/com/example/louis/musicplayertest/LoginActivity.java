@@ -127,12 +127,12 @@ public class LoginActivity extends Activity implements chargementUtilisateurs{
                                     tv_pw.setText(null);
                                     login();
                                 }
-                                break;
+
                                 }
                                 else{
                                     Toast.makeText(getApplicationContext(), "Le mot de passe ne correspond pas", Toast.LENGTH_LONG).show();
                                 }
-
+                                break;
                             }
                             else {
                                 if(i==loginBDD.length-1) {
