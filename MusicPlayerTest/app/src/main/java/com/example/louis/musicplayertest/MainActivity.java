@@ -75,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        manager = getFragmentManager();
+        transaction = manager.beginTransaction();
+        transaction.add(R.id.fragment, ListSong.getInstance()).commit();
 
 
         listViewSliding=(ListView) findViewById(R.id.lv_sliding_menu);
@@ -164,9 +167,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        manager = getFragmentManager();
-        transaction = manager.beginTransaction();
-        transaction.add(R.id.fragment, ListSong.getInstance()).commit();
     }
 
     @Override
