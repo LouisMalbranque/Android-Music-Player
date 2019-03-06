@@ -21,23 +21,15 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:layout="@layout/fragment_blank" />
 
-
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
-
     <ListView
+        android:id="@+id/lv_sliding_menu"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:id="@+id/lv_sliding_menu"
+        android:layout_gravity="start"
+        android:background="@color/colorPrimary"
         android:choiceMode="singleChoice"
-        android:background="#AFAFAF"
         android:divider="#FFFFFF"
-        android:dividerHeight="1dp"
-        android:layout_gravity="start">
+        android:dividerHeight="1dp">
 
     </ListView>
 

@@ -40,6 +40,7 @@ public class SlideAdapter extends BaseAdapter {
         View view = View.inflate(context, R.layout.item_slide,null);
         TextView tv=(TextView) view.findViewById(R.id.item_title);
         Slide item=lstItem.get(position);
+
         tv.setText(item.getTitle());
         return view;
     }

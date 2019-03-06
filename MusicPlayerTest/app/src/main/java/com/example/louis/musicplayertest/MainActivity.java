@@ -8,6 +8,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -75,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //getFragmentManager().beginTransaction().add(R.id.container, fragmentatt).commit();
 
         listViewSliding=(ListView) findViewById(R.id.lv_sliding_menu);
         drawerLayout=findViewById(R.id.mainActivity);
@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         listViewSliding.setAdapter(adapter);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         setTitle(listSliding.get(0).getTitle());
         listViewSliding.setItemChecked(0,true);
@@ -210,10 +211,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (actionBarDrawerToggle.onOptionsItemSelected(item)){
+
             return true;
         }
         if (item.getItemId()==R.id.Déconnexion){
             Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
+            Player.getInstance().pause();
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
