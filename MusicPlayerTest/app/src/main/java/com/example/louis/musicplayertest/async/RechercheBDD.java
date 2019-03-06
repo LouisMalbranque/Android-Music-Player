@@ -21,8 +21,7 @@ public class RechercheBDD extends AsyncTask<Void,Void,List<User>> {
     }
 
     @Override
-    protected void onPostExecute(List<User> listeUser) {System.out.println(listeUser.get(0).getId());
-        System.out.println(listeUser.get(1).getId());
+    protected void onPostExecute(List<User> listeUser) {
         mListenerR.chargementUtil(listeUser);
     }
 }
