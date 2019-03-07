@@ -47,6 +47,7 @@ public class MainCombined extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        setTitle("Liste de lecture");
         transaction = manager.beginTransaction();
 
         transaction.add(R.id.fragment_player, Player.getInstance());

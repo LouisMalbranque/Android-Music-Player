@@ -54,7 +54,6 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
     private ImageButton forwardButton;
     private ImageButton backwardButton;
 
-
     private SeekBar sb;
     private SeekBar mSeekBar;
 
@@ -72,13 +71,94 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
 
     public Player() {
     }
+    public int getSongID() {
+        return songID;
+    }
+
+    public void playCycle(){
+        mSeekBar.setProgress(mp.getCurrentPosition());
+        if (mp.isPlaying()){
+            runnable = new Runnable() {
+                @Override
+                public void run() {
+                    playCycle();
+                }
+            };
+            handler.postDelayed(runnable,250);
+        }
+    }
+
+    public void nameSong(){
+        TextView nameSong=view.findViewById(R.id.songName);
+        nameSong.setText(songs.get(songID).getName());
+        TextView songArtist = view.findViewById(R.id.songArtist);
+        songArtist.setText(songs.get(songID).getArtist());
+        //Trying applying album photo or applying default image
+        new GetAlbumImage().execute(songs.get(songID).getArtist(),songs.get(songID).getName(),view.findViewById(R.id.imageView));
+    }
+    public void newSong(){
+        try {
+            Toast t = makeText(getContext(), songs.get(songID).getName(), Toast.LENGTH_LONG);
+            t.setGravity(Gravity.TOP, 0, 150);
+            t.show();
+        }catch (Exception e){ e.printStackTrace();
+        }
+
+    }
+
+    public void moveMusic(int sec){
+        int time = mp.getCurrentPosition() + sec*1000;
+        if (time < 0) time = 0;
+        else if (time > mp.getDuration())
+        {
+            accessAndPlaySong(1);
+            return;
+        }
+        mp.seekTo(time);
+    }
+    public void accessAndPlaySong(int nextOrPrevious){
+        if (songID !=-1) {
+            mp.stop();
+            mp.reset();
+        }
+        songID = (songID + nextOrPrevious);
+        if (songID < 0) songID = songs.size()-1;
+        if (songID > songs.size()-1) songID = 0;
+        System.out.println(songs.get(songID).getPath());
+        try {
+            mp.setDataSource(songs.get(songID).getPath());
+            mp.prepare();
+        }
+        catch (IOException e) { e.printStackTrace();
+        }
+        play();
+        isPlaying=true;
+        nameSong();
+        newSong();
+
+
+
+    }
+
+    public void pause(){
+        pauseButton.setVisibility(ImageButton.INVISIBLE);
+        playButton.setVisibility(ImageButton.VISIBLE);
+        mp.pause();
+        isPlaying = false;
+    }
+    public void play(){
+        pauseButton.setVisibility(ImageButton.VISIBLE);
+        playButton.setVisibility(ImageButton.INVISIBLE);
+        mp.start();
+        isPlaying = true;
+    }
+
+
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -224,27 +304,12 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
 
         return view;
     }
-
-    public void playCycle(){
-        mSeekBar.setProgress(mp.getCurrentPosition());
-        if (mp.isPlaying()){
-            runnable = new Runnable() {
-                @Override
-                public void run() {
-                    playCycle();
-                }
-            };
-            handler.postDelayed(runnable,250);
-        }
-    }
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean("isPlaying", isPlaying);
         outState.putInt("songID", songID);
     }
-
     @Override
     public void onViewStateRestored(Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
@@ -258,60 +323,15 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
         }
 
     }
-
-
-    public void accessAndPlaySong(int nextOrPrevious){
-        if (songID !=-1) {
-            mp.stop();
-            mp.reset();
-        }
-        songID = (songID + nextOrPrevious);
-        if (songID < 0) songID = songs.size()-1;
-        if (songID > songs.size()-1) songID = 0;
-        System.out.println(songs.get(songID).getPath());
-        try {
-            mp.setDataSource(songs.get(songID).getPath());
-            mp.prepare();
-        }
-        catch (IOException e) { e.printStackTrace();
-        }
-            play();
-            isPlaying=true;
-            nameSong();
-            newSong();
-
-
-
-    }
-    public void nameSong(){
-        TextView nameSong=view.findViewById(R.id.songName);
-        nameSong.setText(songs.get(songID).getName());
-        TextView songArtist = view.findViewById(R.id.songArtist);
-        songArtist.setText(songs.get(songID).getArtist());
-        //Trying applying album photo or applying default image
-        new GetAlbumImage().execute(songs.get(songID).getArtist(),songs.get(songID).getName(),view.findViewById(R.id.imageView));
-    }
-    public void newSong(){
-        try {
-            Toast t = makeText(getContext(), songs.get(songID).getName(), Toast.LENGTH_LONG);
-            t.setGravity(Gravity.TOP, 0, 150);
-            t.show();
-        }catch (Exception e){ e.printStackTrace();
-        }
-
-    }
-
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         am.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
         Volume = progress;
     }
-
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
 
     }
-
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         //Toast.makeText(getApplicationContext(), "Volume: " + Integer.toString(Volume), Toast.LENGTH_SHORT).show();
@@ -320,30 +340,6 @@ public class Player extends android.app.Fragment implements SeekBar.OnSeekBarCha
         this.songID = songID;
     }
 
-    public void pause(){
-        pauseButton.setVisibility(ImageButton.INVISIBLE);
-        playButton.setVisibility(ImageButton.VISIBLE);
-        mp.pause();
-        isPlaying = false;
-    }
-    public void play(){
-        pauseButton.setVisibility(ImageButton.VISIBLE);
-        playButton.setVisibility(ImageButton.INVISIBLE);
-        mp.start();
-        isPlaying = true;
-    }
-    public void moveMusic(int sec){
-        int time = mp.getCurrentPosition() + sec*1000;
-        if (time < 0) time = 0;
-        else if (time > mp.getDuration())
-        {
-            accessAndPlaySong(1);
-            return;
-        }
-        mp.seekTo(time);
-    }
 
-    public int getSongID() {
-        return songID;
-    }
+
 }

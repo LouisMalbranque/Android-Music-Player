@@ -62,7 +62,8 @@ public class ListSong extends android.app.Fragment{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
 
         View view= inflater.inflate(R.layout.fragment_list_song, container, false);
@@ -102,9 +103,7 @@ public class ListSong extends android.app.Fragment{
             }
             @Override
             public void onLongClick(View view, int position) {
-
             }
-
         }));
 
         for (int i=0;i<song.size();i++){

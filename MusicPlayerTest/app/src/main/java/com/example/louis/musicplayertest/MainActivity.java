@@ -66,7 +66,40 @@ public class MainActivity extends AppCompatActivity {
 
 
     private static Context sContext;
+    public static Context getContext() {
+        return sContext;
+    }
+    
+    private void replaceFragment(int position){
+        Fragment fragment=null;
 
+        switch(position){
+
+            case 0:
+                fragment=Player.getInstance();
+                break;
+            case 1:
+                fragment = ListSong.getInstance();
+                break;
+            case 2:
+                transaction = manager.beginTransaction();
+                transaction.remove(Player.getInstance());
+                transaction.remove(ListSong.getInstance());
+                transaction.commit();
+                Intent i = new Intent(MainActivity.this, MainCombined.class);
+                startActivity(i);
+                break;
+            default:
+                break;
+        }
+
+        if (null!=fragment && position!=2){
+            manager=getFragmentManager();
+            transaction=manager.beginTransaction();
+            transaction.replace(R.id.fragment,fragment);
+            transaction.commit();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,43 +153,6 @@ public class MainActivity extends AppCompatActivity {
 
         };
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.logout, menu);
-        return true;
-    }
-
-    private void replaceFragment(int position){
-        Fragment fragment=null;
-
-        switch(position){
-
-            case 0:
-                fragment=Player.getInstance();
-                break;
-            case 1:
-                fragment = ListSong.getInstance();
-                break;
-            case 2:
-                transaction = manager.beginTransaction();
-                transaction.remove(Player.getInstance());
-                transaction.remove(ListSong.getInstance());
-                transaction.commit();
-                Intent i = new Intent(MainActivity.this, MainCombined.class);
-                startActivity(i);
-                break;
-            default:
-                break;
-                }
-
-            if (null!=fragment && position!=2){
-                manager=getFragmentManager();
-                transaction=manager.beginTransaction();
-                transaction.replace(R.id.fragment,fragment);
-                transaction.commit();
-        }
-    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -165,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
         transaction = manager.beginTransaction();
         transaction.add(R.id.fragment, ListSong.getInstance()).commit();
     }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -176,35 +171,11 @@ public class MainActivity extends AppCompatActivity {
 
         transaction.commit();
     }
-
-    private boolean searchMusicFiles(String path) {
-        System.out.println("Recherche dans : "+path);
-
-        File directory = new File(path);
-
-        try {
-            for (File f : directory.listFiles()) {
-                if (f.isDirectory()) {
-                    try {
-                        searchMusicFiles(f.getPath());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    if (f.getPath().endsWith(".mp3")) {
-                        System.out.println(f.getPath());
-                        songs.add(new Song(f));
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.logout, menu);
         return true;
     }
-
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (actionBarDrawerToggle.onOptionsItemSelected(item)){
@@ -225,34 +196,6 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
     }
 
-    public static Context getContext() {
-        return sContext;
-    }
+
 
 }
-
-
-/*XML mainActivity
-          <Button
-            android:id="@+id/buttonLecteur"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Player" />
-
-        <Button
-            android:id="@+id/buttonListSong"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Listes Song" />
-
-        <Button
-            android:id="@+id/buttonCombined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Combiné" />
-
-
-            */
